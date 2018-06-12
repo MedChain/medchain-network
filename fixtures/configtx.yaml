@@ -25,7 +25,14 @@ Profiles:
                 Organizations:
                     - *MedChain
                     - *Org1MedChain
-
+                    - *Org2MedChain
+    TwoOrgsChannel2:
+        Consortium: SampleConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Org1MedChain  
+                - *Org2MedChain
 ################################################################################
 #
 #   SECTION: Organizations
@@ -48,6 +55,14 @@ Organizations:
         MSPDir: crypto-config/peerOrganizations/org1.hf.medchain.global/msp
         AnchorPeers:
             - Host: peer0.org1.hf.medchain.global
+              Port: 7051
+    - &Org2MedChain
+        Name: MedChainOrganization1
+        ID: org2.hf.medchain.global
+        AdminPrincipal: Role.ADMIN
+        MSPDir: crypto-config/peerOrganizations/org2.hf.medchain.global/msp
+        AnchorPeers:
+            - Host: peer0.org2.hf.medchain.global
               Port: 7051
 
 ################################################################################
