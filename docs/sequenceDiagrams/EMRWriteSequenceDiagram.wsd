@@ -1,0 +1,37 @@
+@startuml
+title <size:28>__EMRWriteSequenceDiagram__</size>
+
+actor Patient
+participant dPatientApp
+participant PatientNode
+database PermissionChannel
+actor ServiceProvider
+participant dServiceProviderApp
+participant ProviderNode
+participant StorageNode
+database EMRChannel
+
+Patient->dPatientApp: permission
+dPatientApp->PatientNode: savePermission(\nstring: patientPubAddr, \nbool: 1=enable)
+PatientNode->PermissionChannel: invokePermission(\nstring: patientPubAddr, \nbool: 1=enable)
+PermissionChannel->dServiceProviderApp: getPermission(\nstring: patientPubAddr, \nstring: providerPubAddr) ->Permission
+group Permission Granted
+  ServiceProvider->dServiceProviderApp: uploadFile() -> rawFile
+  ServiceProvider->dServiceProviderApp: getMetaForm() -> fileMeta
+  dServiceProviderApp->dServiceProviderApp: encryptFile\n(string: patientPubAddr, \nbyteArray: rawFile) \n-> EncryptedFile[]
+  dServiceProviderApp->dServiceProviderApp: fragFile\n(byteArray: EncryptedFile[]) \n-> EncryptedFrag[]
+  dServiceProviderApp->ProviderNode: saveFrags\n(string: patientPubAddr, \nstring: fileMeta, \nArray[]byteArray: EncryptedFrag[])
+  PermissionChannel->ProviderNode: getPermission(string: patientPubAddr, string: providerPubAddr) ->Permission
+  group Permission Granted
+    loop saveFileFragments(Array[]byteArray: EncryptedFrag[])
+      ProviderNode->StorageNode: offerFragStorageMarket(\nbyteArray: EncryptedFrag[])
+      StorageNode->StorageNode: writeFrag(byteArray: EncryptedFrag)
+      StorageNode->EMRChannel: generateAccessBlock(\nstring: accessAddr, \nbool: 0-write, \nstring: providerAddr)
+      StorageNode->ProviderNode: string: FragLocation[]
+    end
+    ProviderNode->ProviderNode: createDirBlock(\nstring: patientPubAddr, \nstring: fileMeta, \nbyteArray: encryptedFrag[]) \n-> DirectoryBlock[]
+    ProviderNode->EMRChannel: generateAccessBlock(\nstring: accessAddr, \nbool: 1-read,nstring: providerAddr)
+    ProviderNode->dServiceProviderApp: DirectoryBlock[]
+  end
+end
+@enduml
