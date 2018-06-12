@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/chainHero/heroes-service/blockchain"
-	"github.com/chainHero/heroes-service/web"
-	"github.com/chainHero/heroes-service/web/controllers"
+	"medchain/medchain-network/blockchain"
+	"medchain/medchain-network/web"
+	"medchain/medchain-network/web/controllers"
 	"os"
 )
 
@@ -12,13 +12,13 @@ func main() {
 	// Definition of the Fabric SDK properties
 	fSetup := blockchain.FabricSetup{
 		// Channel parameters
-		ChannelID:     "chainhero",
-		ChannelConfig: os.Getenv("GOPATH") + "/src/github.com/chainHero/heroes-service/fixtures/artifacts/chainhero.channel.tx",
+		ChannelID:     "emr",
+		ChannelConfig: os.Getenv("GOPATH") + "/src/medchain/medchain-network/fixtures/artifacts/emr.channel.tx",
 
 		// Chaincode parameters
-		ChainCodeID:     "heroes-service",
+		ChainCodeID:     "medchain-network",
 		ChaincodeGoPath: os.Getenv("GOPATH"),
-		ChaincodePath:   "github.com/chainHero/heroes-service/chaincode/",
+		ChaincodePath:   "medchain/medchain-network/chaincode/",
 		OrgAdmin:        "Admin",
 		OrgName:         "Org1",
 		ConfigFile:      "config.yaml",

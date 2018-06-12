@@ -27,12 +27,12 @@ env-down:
 ##### RUN
 run:
 	@echo "Start app ..."
-	@./heroes-service
+	@./medchain-network
 
 ##### CLEAN
 clean: env-down
 	@echo "Clean up ..."
-	@rm -rf /tmp/heroes-service-* heroes-service
-	@docker rm -f -v `docker ps -a --no-trunc | grep "heroes-service" | cut -d ' ' -f 1` 2>/dev/null || true
-	@docker rmi `docker images --no-trunc | grep "heroes-service" | cut -d ' ' -f 1` 2>/dev/null || true
+	@rm -rf /tmp/medchain-network-* medchain-network
+	@docker rm -f -v `docker ps -a --no-trunc | grep "medchain-network" | cut -d ' ' -f 1` 2>/dev/null || true
+	@docker rmi `docker images --no-trunc | grep "medchain-network" | cut -d ' ' -f 1` 2>/dev/null || true
 	@echo "Clean up done"

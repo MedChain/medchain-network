@@ -34,4 +34,4 @@ fixtures/tls/fabricca/server/*.pem
 vendor/*/
 
 # Final binary
-heroes-service
+medchain-network

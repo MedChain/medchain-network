@@ -2,7 +2,7 @@ package web
 
 import (
 	"fmt"
-	"github.com/chainHero/heroes-service/web/controllers"
+	"medchain/medchain-network/web/controllers"
 	"net/http"
 )
 
