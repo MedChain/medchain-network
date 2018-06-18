@@ -12,7 +12,7 @@ Steps performed to date:
      1. cryptogen generate --config=./crypto-config.yaml
      1. FABRIC_CFG_PATH=$PWD configtxgen -profile MedChain -outputBlock ./artifacts/orderer.genesis.block
      1. FABRIC_CFG_PATH=$PWD configtxgen -profile MedChain -outputCreateChannelTx ./artifacts/emr.channel.tx -channelID emr
-     1. FABRIC_CFG_PATH=$PWD configtxgen -profile MedChain -outputAnchorPeersUpdate ./artifacts/org1.medchain.anchors.tx -channelID emr -asOrg MedChainOrganization1
+     1. FABRIC_CFG_PATH=$PWD configtxgen -profile MedChain -outputAnchorPeersUpdate ./artifacts/org1.medchain.anchors.tx -channelID emr -asOrg Org1MedChain
  1. make
 
  Seems to compile, sets up network, starts web server, accepts POSTs, changes values in blockchain

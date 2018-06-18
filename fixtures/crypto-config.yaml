@@ -1,6 +1,6 @@
 # "OrdererOrgs" - Definition of organizations managing orderer nodes
 OrdererOrgs:
-  - Name: MedChain
+  - Name: OrdererOrg
     Domain: hf.medchain.global
     # Specs is an array of Spec entries.  Each Spec entry consists of two fields : Hostname and CommonName
     Specs:
