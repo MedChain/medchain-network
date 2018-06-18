@@ -11,10 +11,11 @@
 ################################################################################
 Profiles:
     MedChain:
+        
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - *MedChain
+                - *OrdererOrg
         Application:
             <<: *ApplicationDefaults
             Organizations:
@@ -23,7 +24,7 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *MedChain
+                    - *OrdererOrg
                     - *Org1MedChain
                     - *Org2MedChain
     TwoOrgsChannel2:
@@ -42,14 +43,14 @@ Profiles:
 #
 ################################################################################
 Organizations:
-    - &MedChain
-        Name: MedChain
+    - &OrdererOrg
+        Name: OrdererOrg
         ID: hf.medchain.global
         AdminPrincipal: Role.ADMIN
         MSPDir: crypto-config/ordererOrganizations/hf.medchain.global/msp
 
     - &Org1MedChain
-        Name: MedChainOrganization1
+        Name: Org1MedChain
         ID: org1.hf.medchain.global
         AdminPrincipal: Role.ADMIN
         MSPDir: crypto-config/peerOrganizations/org1.hf.medchain.global/msp

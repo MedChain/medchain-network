@@ -35,3 +35,7 @@ vendor/*/
 
 # Final binary
 medchain-network
+
+#Crypto artifacts
+fixtures/crypto-config/*
+fixtures/artifacts/* 
