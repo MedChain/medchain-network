@@ -8,13 +8,13 @@ import (
 )
 
 // InvokeHello
-func (setup *FabricSetup) InvokeHello(value string) (string, error) {
+func (setup *FabricSetup) InvokeHello(cc ChaincodeSetup, field string, value string) (string, error) {
 
 	// Prepare arguments
 	var args []string
 	args = append(args, "invoke")
 	args = append(args, "invoke")
-	args = append(args, "hello")
+	args = append(args, field)
 	args = append(args, value)
 
 	eventID := "eventInvoke"
@@ -25,14 +25,13 @@ func (setup *FabricSetup) InvokeHello(value string) (string, error) {
 
 	// Register a notification handler on the client
 	notifier := make(chan *chclient.CCEvent)
-	ChainCodeID := "StorageChainCode"
-	rce, err := setup.client.RegisterChaincodeEvent(notifier, ChainCodeID, eventID)
+	rce, err := setup.client.RegisterChaincodeEvent(notifier, cc.ChainCodeID, eventID)
 	if err != nil {
 		return "", fmt.Errorf("failed to register chaincode evet: %v", err)
 	}
 
 	// Create a request (proposal) and send it
-	response, err := setup.client.Execute(chclient.Request{ChaincodeID: ChainCodeID, Fcn: args[0], Args: [][]byte{[]byte(args[1]), []byte(args[2]), []byte(args[3])}, TransientMap: transientDataMap})
+	response, err := setup.client.Execute(chclient.Request{ChaincodeID: cc.ChainCodeID, Fcn: args[0], Args: [][]byte{[]byte(args[1]), []byte(args[2]), []byte(args[3])}, TransientMap: transientDataMap})
 	if err != nil {
 		return "", fmt.Errorf("failed to move funds: %v", err)
 	}
