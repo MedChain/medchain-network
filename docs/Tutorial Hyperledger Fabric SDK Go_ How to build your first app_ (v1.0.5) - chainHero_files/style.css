@@ -1,0 +1,117 @@
+/*
+ Theme Name:   chainHero
+ Theme URI:    http://chainhero.io
+ Description:  Theme of the chainHero website
+ Author:       toHero
+ Author URI:   https://www.tohero.fr/
+ Template:     bento
+ Version:      1.0.0
+ License:      GNU General Public License v3 or later
+ License URI:  http://www.gnu.org/licenses/gpl-3.0.html
+ Tags:         one-column, two-columns, right-sidebar, left-sidebar, grid-layout, custom-background, custom-colors, custom-menu, custom-logo, featured-image-header, featured-images, footer-widgets, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, blog, e-commerce, portfolio
+ Text Domain:  chainhero
+*/
+
+/** General **/
+@media screen and (max-width: 1020px) {
+    .post-header {
+        height: 200px;
+    }
+}
+
+.comment-list code {
+    max-height: 500px;
+    overflow: auto;
+    display: block;
+    max-width: 100%;
+}
+
+/** Particles JS **/
+#particles-js {
+    position: relative;
+}
+
+#particles-js .post-header-overlay {
+    z-index: 40;
+}
+
+#particles-js canvas.particles-js-canvas-el {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 50;
+}
+
+#particles-js .post-header-container {
+    z-index: 60;
+}
+
+/** Menu **/
+.sub-menu a span {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 1020px) {
+    .bnt-container > div {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+header.site-header {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+
+/** Home page **/
+#technologies .textwidget p {
+    padding: 5px 10px;
+    border: 1px solid #EFF0F4;
+    box-shadow: 0 0 5px #EFF0F4;
+    border-radius: 4px
+}
+
+#blockchain .sow-features-list.sow-features-responsive {
+    margin: 0 auto;
+}
+
+
+@media screen and (min-width: 520px) {
+    #blockchain .sow-features-list .sow-features-feature.sow-features-feature-last-row:nth-last-child(2) {
+        margin-left: 16.666%;
+    }
+}
+
+#useCases .title-right h5 {
+    text-align: right;
+}
+
+#useCases .textwidget {
+    width: 100%;
+}
+
+#contact .sow-contact-form {
+    opacity: 0.9;
+}
+
+#contact .sow-recaptcha > div {
+    margin: 0 auto;
+}
+
+/** Product - Identity Manager **/
+
+#reduceTheCost .sow-features-list.sow-features-responsive {
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 780px) {
+    #secureAndAuditable p,
+    #secureAndAuditable h2 {
+        text-align: center !important;
+    }
+
+    #reduceTheTime p,
+    #reduceTheTime h2 {
+        text-align: center !important;
+    }
+}

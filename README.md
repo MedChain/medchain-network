@@ -3,6 +3,8 @@
 Work in progress (WIP)
 
 Steps performed to date:
+ 1. From [this ChainHero tutorial](https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/)
+  1. A copy of the tutorial saved [here](docs/Tutorial-Hyperledger-Fabric-SDK-Go_How-to-build-your-first-app_v1.0.5-chainHero.html) and [here](docs/Tutorial-Hyperledger-Fabric_How-to-build-your-first-network-chainHero.html)
  1. copied https://github.com/chainHero/heroes-service to medchain/medchain-networks
  1. changed *almost* all references to hero over to MedChain, medchain, medchain-network, emr, etc.
  1. followed instructions at https://github.com/chainHero/heroes-service-network to rebuild fixtures/

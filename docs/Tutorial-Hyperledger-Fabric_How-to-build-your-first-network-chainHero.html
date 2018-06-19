@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<!-- saved from url=(0089)https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" prefix="og: http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	        
+		    	
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="profile" href="http://gmpg.org/xfn/11">
+            	
+				<title>Tutorial Hyperledger Fabric: How to build your first network? - chainHero</title>
+<script async="" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/analytics.js"></script><script id="facebook-jssdk" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/sdk.js"></script><script>(function(d, s, id){
+				 var js, fjs = d.getElementsByTagName(s)[0];
+				 if (d.getElementById(id)) {return;}
+				 js = d.createElement(s); js.id = id;
+				 js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+				 fjs.parentNode.insertBefore(js, fjs);
+			   }(document, 'script', 'facebook-jssdk'));</script>
+<!-- This site is optimized with the Yoast SEO plugin v7.6.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tutorial Hyperledger Fabric: How to build your first network? - chainHero">
+<meta property="og:description" content="Tutorial Hyperledger Fabric: How to build your first network ? This tutorial will introduce you to the Hyperledger Fabric network and will allow you to build your own Hyperledger Fabric network. It is working on Ubuntu 16.04 with Hyperledger-Fabric version 1.0.5. The sources are available on Github: github.com/chainHero/heroes-service-network For convenience only, we will create theContinue reading →">
+<meta property="og:url" content="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/">
+<meta property="og:site_name" content="chainHero">
+<meta property="article:section" content="Non classé">
+<meta property="article:published_time" content="2018-04-04T15:24:52+02:00">
+<meta property="article:modified_time" content="2018-04-04T15:25:30+02:00">
+<meta property="og:updated_time" content="2018-04-04T15:25:30+02:00">
+<meta property="og:image" content="https://chainhero.io/wp-content/uploads/2018/04/hyperledger-fabric-network.png">
+<meta property="og:image:secure_url" content="https://chainhero.io/wp-content/uploads/2018/04/hyperledger-fabric-network.png">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="614">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="Tutorial Hyperledger Fabric: How to build your first network ? This tutorial will introduce you to the Hyperledger Fabric network and will allow you to build your own Hyperledger Fabric network. It is working on Ubuntu 16.04 with Hyperledger-Fabric version 1.0.5. The sources are available on Github: github.com/chainHero/heroes-service-network For convenience only, we will create theContinue reading →">
+<meta name="twitter:title" content="Tutorial Hyperledger Fabric: How to build your first network? - chainHero">
+<meta name="twitter:site" content="@chainhero_io">
+<meta name="twitter:image" content="https://chainhero.io/wp-content/uploads/2018/04/hyperledger-fabric-network.png">
+<meta name="twitter:creator" content="@chainhero_io">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="https://ws.sharethis.com/">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="https://maxcdn.bootstrapcdn.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="chainHero » Feed" href="https://chainhero.io/feed/">
+<link rel="alternate" type="application/rss+xml" title="chainHero » Comments Feed" href="https://chainhero.io/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="chainHero » Tutorial Hyperledger Fabric: How to build your first network? Comments Feed" href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.4\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.4\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/chainhero.io\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.6"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56692,8205,9792,65039],[55357,56692,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="simple-share-buttons-adder-indie-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="simple-share-buttons-adder-font-awesome-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/font-awesome.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="sow-social-media-buttons-wire-7f5e16baf55f-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/sow-social-media-buttons-wire-7f5e16baf55f.css" type="text/css" media="all">
+<link rel="stylesheet" id="chainhero-style-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="dashicons-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/dashicons.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="bento-theme-styles-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/style(1).css" type="text/css" media="all">
+<style id="bento-theme-styles-inline-css" type="text/css">
+
+		.logo {
+			padding: 0px 0;
+			padding: 0rem 0;
+		}
+	
+		@media screen and (min-width: 64em) {
+			.bnt-container {
+				max-width: 1080px;
+				max-width: 108rem;
+			}
+		}
+		@media screen and (min-width: 74.25em) {
+			.bnt-container {
+				padding: 0;
+			}
+		}
+		@media screen and (min-width: 120em) {
+			.bnt-container {
+				max-width: 1440px;
+				max-width: 144rem;
+			}
+		}
+	
+		body {
+			font-family: Roboto, Arial, sans-serif;
+			font-size: 18px;
+			font-size: 1.8em;
+		}
+		.site-content h1, 
+		.site-content h2, 
+		.site-content h3, 
+		.site-content h4, 
+		.site-content h5, 
+		.site-content h6,
+		.post-header-title h1 {
+			font-family: Roboto, Arial, sans-serif;
+		}
+		#nav-primary {
+			font-family: Roboto, Arial, sans-serif;
+		}
+		.primary-menu > li > a {
+			font-size: 18px;
+			font-size: 1.8rem;
+		}
+		.primary-menu > .menu-item-has-children > a:after {
+			line-height: 9;
+		}
+	
+		.site-header,
+		.header-default .site-header.fixed-header,
+		.header-side .site-wrapper {
+			background: #ffffff;
+		}
+		.primary-menu > li > .sub-menu {
+			border-top-color: #ffffff;
+		}
+		.primary-menu > li > a,
+		#nav-mobile li a,
+		.mobile-menu-trigger,
+		.mobile-menu-close,
+		.ham-menu-close {
+			color: #15274d;
+		}
+		.primary-menu > li > a:hover,
+		.primary-menu > li.current-menu-item > a,
+		.primary-menu > li.current-menu-ancestor > a {
+			color: #3389c9;
+		}
+		.primary-menu .sub-menu li,
+		#nav-mobile {
+			background-color: #ffffff;
+		}
+		.primary-menu .sub-menu li a:hover,
+		.primary-menu .sub-menu .current-menu-item:not(.current-menu-ancestor) > a,
+		#nav-mobile li a:hover,
+		#nav-mobile .current-menu-item:not(.current-menu-ancestor) > a {
+			background-color: #f2f2f2;
+		}
+		.primary-menu .sub-menu,
+		.primary-menu .sub-menu li,
+		#nav-mobile li a,
+		#nav-mobile .primary-mobile-menu > li:first-child > a {
+			border-color: #f2f2f2;
+		}
+		.primary-menu .sub-menu li a {
+			color: #15274d; 
+		}
+		.primary-menu .sub-menu li:hover a {
+			color: #3389c9; 
+		}
+		#nav-mobile {
+			background-color: #ffffff;
+		}
+		#nav-mobile li a,
+		.mobile-menu-trigger,
+		.mobile-menu-close {
+			color: #15274d;
+		}
+		#nav-mobile li a:hover,
+		#nav-mobile .current-menu-item:not(.current-menu-ancestor) > a {
+			background-color: #f2f2f2;
+		}
+		#nav-mobile li a,
+		#nav-mobile .primary-mobile-menu > li:first-child > a {
+			border-color: #f2f2f2;	
+		}
+		#nav-mobile li a:hover,
+		.mobile-menu-trigger-container:hover,
+		.mobile-menu-close:hover {
+			color: #3389c9;
+		}
+	
+		.site-content {
+			background-color: #ffffff;
+		}
+		.site-content h1, 
+		.site-content h2, 
+		.site-content h3, 
+		.site-content h4, 
+		.site-content h5, 
+		.site-content h6 {
+			color: #15274d;
+		}
+		.products .product a h3,
+		.masonry-item-box a h2 {
+			color: inherit;	
+		}
+		.site-content {
+			color: #15274d;
+		}
+		.site-content a:not(.masonry-item-link) {
+			color: #3389c9;
+		}
+		.site-content a:not(.page-numbers) {
+			color: #3389c9;
+		}
+		.site-content a:not(.ajax-load-more) {
+			color: #3389c9;
+		}
+		.site-content a:not(.remove) {
+			color: #3389c9;
+		}
+		.site-content a:not(.button) {
+			color: #3389c9;
+		}
+		.page-links a .page-link-text:not(:hover) {
+			color: #00B285;
+		}
+		label,
+		.wp-caption-text,
+		.post-date-blog,
+		.entry-footer, 
+		.archive-header .archive-description, 
+		.comment-meta,
+		.comment-notes,
+		.project-types,
+		.widget_archive li,
+		.widget_categories li,
+		.widget .post-date,
+		.widget_calendar table caption,
+		.widget_calendar table th,
+		.widget_recent_comments .recentcomments,
+		.product .price del,
+		.widget del,
+		.widget del .amount,
+		.product_list_widget a.remove,
+		.product_list_widget .quantity,
+		.product-categories .count,
+		.product_meta,
+		.shop_table td.product-remove a,
+		.woocommerce-checkout .payment_methods .wc_payment_method .payment_box {
+			color: #cecece;
+		}
+		hr,
+		.entry-content table,
+		.entry-content td,
+		.entry-content th,
+		.separator-line,
+		.comment .comment .comment-nested,
+		.comment-respond,
+		.sidebar .widget_recent_entries ul li,
+		.sidebar .widget_recent_comments ul li,
+		.sidebar .widget_categories ul li,
+		.sidebar .widget_archive ul li,
+		.sidebar .widget_product_categories ul li,
+		.woocommerce .site-footer .widget-woo .product_list_widget li,
+		.woocommerce .site-footer .widget-woo .cart_list li:last-child,
+		.woocommerce-tabs .tabs,
+		.woocommerce-tabs .tabs li.active,
+		.cart_item,
+		.cart_totals .cart-subtotal,
+		.cart_totals .order-total,
+		.woocommerce-checkout-review-order table tfoot,
+		.woocommerce-checkout-review-order table tfoot .order-total,
+		.woocommerce-checkout-review-order table tfoot .shipping {
+			border-color: #cecece;	
+		}
+		input[type="text"], 
+		input[type="password"], 
+		input[type="email"], 
+		input[type="number"], 
+		input[type="tel"], 
+		input[type="search"], 
+		textarea, 
+		select, 
+		.select2-container {
+			background-color: #f2f2f2;
+			color: #15274d;
+		}
+		::-webkit-input-placeholder { 
+			color: #3389c9; 
+		}
+		::-moz-placeholder { 
+			color: #3389c9; 
+		}
+		:-ms-input-placeholder { 
+			color: #3389c9; 
+		}
+		input:-moz-placeholder { 
+			color: #3389c9; 
+		}
+		.pagination a.page-numbers:hover,
+		.woocommerce-pagination a.page-numbers:hover,
+		.site-content a.ajax-load-more:hover,
+		.page-links a .page-link-text:hover,
+		.widget_price_filter .ui-slider .ui-slider-range, 
+		.widget_price_filter .ui-slider .ui-slider-handle,
+		input[type="submit"],
+		.site-content .button,
+		.widget_price_filter .ui-slider .ui-slider-range, 
+		.widget_price_filter .ui-slider .ui-slider-handle {
+			background-color: #3389c9;	
+		}
+		.pagination a.page-numbers:hover,
+		.woocommerce-pagination a.page-numbers:hover,
+		.site-content a.ajax-load-more:hover,
+		.page-links a .page-link-text:hover {
+			border-color: #3389c9;
+		}
+		.page-links a .page-link-text:not(:hover),
+		.pagination a, 
+		.woocommerce-pagination a,
+		.site-content a.ajax-load-more {
+			color: #3389c9;
+		}
+		input[type="submit"]:hover,
+		.site-content .button:hover {
+			background-color: #15274d;
+		}
+		input[type="submit"],
+		.site-content .button,
+		.site-content a.button,
+		.pagination a.page-numbers:hover,
+		.woocommerce-pagination a.page-numbers:hover,
+		.site-content a.ajax-load-more:hover,
+		.page-links a .page-link-text:hover {
+			color: #ffffff;	
+		}
+		input[type="submit"]:hover,
+		.site-content .button:hover {
+			color: #ffffff;
+		}
+		.shop_table .actions .button,
+		.shipping-calculator-form .button,
+		.checkout_coupon .button,
+		.widget_shopping_cart .button:first-child,
+		.price_slider_amount .button {
+			background-color: #999999;
+		}
+		.shop_table .actions .button:hover,
+		.shipping-calculator-form .button:hover,
+		.checkout_coupon .button:hover,
+		.widget_shopping_cart .button:first-child:hover,
+		.price_slider_amount .button:hover {
+			background-color: #777777;
+		}
+		.shop_table .actions .button,
+		.shipping-calculator-form .button,
+		.checkout_coupon .button,
+		.widget_shopping_cart .button:first-child,
+		.price_slider_amount .button {
+			color: #ffffff;
+		}
+		.shop_table .actions .button:hover,
+		.shipping-calculator-form .button:hover,
+		.checkout_coupon .button:hover,
+		.widget_shopping_cart .button:first-child:hover,
+		.price_slider_amount .button:hover {
+			color: #ffffff;
+		}
+	
+		.sidebar-footer {
+			background-color: #15274d;
+		}
+		.site-footer {
+			color: #cccccc;
+		}
+		.site-footer a {
+			color: #ffffff;
+		}
+		.site-footer label, 
+		.site-footer .post-date-blog, 
+		.site-footer .entry-footer, 
+		.site-footer .comment-meta, 
+		.site-footer .comment-notes, 
+		.site-footer .widget_archive li, 
+		.site-footer .widget_categories li, 
+		.site-footer .widget .post-date, 
+		.site-footer .widget_calendar table caption, 
+		.site-footer .widget_calendar table th, 
+		.site-footer .widget_recent_comments .recentcomments {
+			color: #aaaaaa;
+		}
+		.sidebar-footer .widget_recent_entries ul li, 
+		.sidebar-footer .widget_recent_comments ul li, 
+		.sidebar-footer .widget_categories ul li, 
+		.sidebar-footer .widget_archive ul li {
+			border-color: #999999;
+		}
+		.bottom-footer {
+			background-color: #15274d;
+			color: #cccccc;
+		}
+		.bottom-footer a {
+			color: #ffffff;
+		}
+	
+
+			.post-header-title h1,
+			.entry-header h1 { 
+				color: ; 
+			}
+			.post-header-subtitle {
+				color: #999999;
+			}
+			.site-content {
+				background-color: ;
+			}
+		
+				.post-header-title h1,
+				.entry-title:not(.grid-item-header .entry-title),
+				.post-header-subtitle { 
+					display: none;
+				}
+			
+				.post-header {
+					background-image: url(https://chainhero.io/wp-content/uploads/2018/04/hyperledger-fabric-network.png);
+				}
+			
+				.post-header-overlay {
+					background-color: ;
+					opacity: 1;
+				}
+				.post-header-subtitle {
+					margin-bottom: 0;
+				}
+				.post-header-cta a,
+				.post-header-cta div {
+					border-color: ;
+				}
+				.post-header-cta .post-header-cta-primary {
+					background-color: ;
+					color: ;
+				}
+				.post-header-cta .post-header-cta-secondary {
+					color: ;
+				}
+				.post-header-cta a:hover,
+				.post-header-cta div:hover {
+					border-color: ;
+				}
+				.post-header-cta .post-header-cta-primary:hover {
+					background-color: ;
+				}
+				.post-header-cta .post-header-cta-secondary:hover {
+					color: ;
+				}
+				.post-header-cta .post-header-cta-secondary {
+					color: ;
+					border-color: ;
+				}
+				.post-header-cta .post-header-cta-secondary:hover {
+					color: ;
+					border-color: ;
+				}
+				@media screen and (min-width: 48em) {
+					.post-header-title {
+						padding-top: 20%;
+						padding-bottom: 20%;
+					}
+				}
+			
+</style>
+<link rel="stylesheet" id="font-awesome-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/fontawesome-all.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="google-fonts-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/css(1)" type="text/css" media="all">
+<link rel="stylesheet" id="varnish_http_purge-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/style(2).css" type="text/css" media="all">
+<script id="st_insights_js" type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/st_insights.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/jquery.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/jquery-migrate.min.js"></script>
+<link rel="https://api.w.org/" href="https://chainhero.io/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://chainhero.io/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://chainhero.io/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.9.6">
+<link rel="shortlink" href="https://chainhero.io/?p=494">
+<link rel="alternate" type="application/json+oembed" href="https://chainhero.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fchainhero.io%2F2018%2F04%2Ftutorial-hyperledger-fabric-how-to-build-your-first-network%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://chainhero.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fchainhero.io%2F2018%2F04%2Ftutorial-hyperledger-fabric-how-to-build-your-first-network%2F&amp;format=xml">
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #ffffff; }
+</style>
+<link rel="icon" href="https://chainhero.io/wp-content/uploads/2017/07/cropped-chainhero-logo-2-32x32.png" sizes="32x32">
+<link rel="icon" href="https://chainhero.io/wp-content/uploads/2017/07/cropped-chainhero-logo-2-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon-precomposed" href="https://chainhero.io/wp-content/uploads/2017/07/cropped-chainhero-logo-2-180x180.png">
+<meta name="msapplication-TileImage" content="https://chainhero.io/wp-content/uploads/2017/07/cropped-chainhero-logo-2-270x270.png">
+        
+    <style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_customer_chat_bounce_in_v1{animation-duration:250ms;animation-name:fb_bounce_in_v1}.fb_customer_chat_bounce_out_v1{animation-duration:250ms;animation-name:fb_bounce_out_v1}.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_in_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_out_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bubble_pop_in{animation-duration:250ms;animation-name:fb_customer_chat_bubble_bounce_in_animation}.fb_customer_chat_bubble_animated_no_badge{box-shadow:0 3px 12px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_no_badge:hover{box-shadow:0 5px 24px rgba(0, 0, 0, .3)}.fb_customer_chat_bubble_animated_with_badge{box-shadow:-5px 4px 14px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_with_badge:hover{box-shadow:-5px 8px 24px rgba(0, 0, 0, .2)}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}.fb_mobile_overlay_active{background-color:#fff;height:100%;overflow:hidden;position:fixed;visibility:hidden;width:100%}@keyframes fb_bounce_in_v1{0%{opacity:0;transform:scale(.8, .8);transform-origin:bottom right}80%{opacity:.8;transform:scale(1.03, 1.03)}100%{opacity:1;transform:scale(1, 1)}}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_v2_mobile_chat_started{0%{opacity:0;top:20px}100%{opacity:1;top:0}}@keyframes fb_bounce_out_v1{from{opacity:1}to{opacity:0}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_v2_mobile_chat_started{0%{opacity:1;top:0}100%{opacity:0;top:20px}}@keyframes fb_customer_chat_bubble_bounce_in_animation{0%{bottom:6pt;opacity:0;transform:scale(0, 0);transform-origin:center}70%{bottom:18pt;opacity:1;transform:scale(1.2, 1.2)}100%{transform:scale(1, 1)}}</style></head>
+    
+    
+        
+    <body class="post-template-default single single-post postid-494 single-format-standard custom-background wp-custom-logo no-sidebar extended-header header-default">
+	
+		         				
+		<div class="site-wrapper clear">
+
+			<header class="site-header no-fixed-header">
+            	<div class="bnt-container">
+                
+                	        <div class="mobile-menu-trigger">
+        	<div class="mobile-menu-trigger-container">
+                <div class="mobile-menu-trigger-stick">
+                </div>
+                <div class="mobile-menu-trigger-stick">
+                </div>
+                <div class="mobile-menu-trigger-stick">
+                </div>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <div class="mobile-menu-shadow">
+            </div>
+            <div id="nav-mobile" class="nav">
+            	<div class="mobile-menu-close-container">
+                	<div class="mobile-menu-close">
+                    </div>
+                </div>
+                <nav>
+                    <div class="menu-container"><ul id="menu-main-1" class="primary-mobile-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-128"><a href="https://chainhero.io/#headerSlider"><span class="menu-item-inner">Home</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-34"><a href="https://chainhero.io/#presentation"><span class="menu-item-inner">Presentation</span></a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-140"><a href="https://chainhero.io/products/"><span class="menu-item-inner">Products</span></a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-245"><a href="https://chainhero.io/blog/"><span class="menu-item-inner">Blog</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-126"><a href="https://chainhero.io/#contact"><span class="menu-item-inner">Contact</span></a></li>
+</ul></div>                </nav>
+            </div>
+        </div>
+                    		
+                    <div class="logo clear"><a href="https://chainhero.io/" class="logo-image-link"><img class="logo-fullsize" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/chainhero-logo-title.png" alt="chainHero"><img class="logo-mobile" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/chainhero-logo-title.png" alt="chainHero"></a></div>                    
+                    		<div class="header-menu clear">
+            <div id="nav-primary" class="nav">
+                <nav>
+                    <div class="menu-container"><ul id="menu-main-2" class="primary-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-128"><a href="https://chainhero.io/#headerSlider"><span class="menu-item-inner">Home</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-34"><a href="https://chainhero.io/#presentation"><span class="menu-item-inner">Presentation</span></a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-140"><a href="https://chainhero.io/products/"><span class="menu-item-inner">Products</span></a>
+<ul class="sub-menu" style="border-top-width: 52.5px;">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-136"><a href="https://chainhero.io/products/identity-manager/"><span class="menu-item-inner">Identity Manager</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><a href="https://chainhero.io/products/blockaudit/"><span class="menu-item-inner">Blockaudit</span></a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-245"><a href="https://chainhero.io/blog/"><span class="menu-item-inner">Blog</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-126"><a href="https://chainhero.io/#contact"><span class="menu-item-inner">Contact</span></a></li>
+</ul></div>                </nav>
+            </div>
+        </div>
+		<div class="ham-menu-trigger">
+        	<div class="ham-menu-trigger-container">
+                <div class="ham-menu-trigger-stick">
+                </div>
+                <div class="ham-menu-trigger-stick">
+                </div>
+                <div class="ham-menu-trigger-stick">
+                </div>
+            </div>
+        </div>
+		<div class="ham-menu-close-container">
+			<div class="ham-menu-close">
+			</div>
+		</div>
+                            
+                </div>
+            </header>
+			
+			<!-- .site-header -->
+						
+			
+				<div class="post-header">
+					
+					<div class="post-header-overlay">
+					</div>
+					<div class="bnt-container post-header-container">
+						<div class="post-header-title">
+							
+							
+							
+						</div>
+					</div>
+				</div>
+							        
+        	<div class="site-content">
+<div class="bnt-container">
+    
+    <div class="content content-post">
+        <main class="site-main" role="main">
+        
+            
+<article id="post-494" class="post-494 post type-post status-publish format-standard has-post-thumbnail hentry category-non-classe has-thumb">
+
+	<div class="entry-content clear"><p><span id="more-494"></span></p>
+<h1>Tutorial Hyperledger Fabric: How to build your first network ?</h1>
+<p>This tutorial will introduce you to the Hyperledger Fabric network and will allow you to build your own Hyperledger Fabric network.</p>
+<p>It is working on <strong>Ubuntu 16.04</strong> with <strong>Hyperledger-Fabric version 1.0.5</strong>.<br>
+The sources are available on Github: <a href="https://github.com/chainHero/heroes-service-network" rel="nofollow">github.com/chainHero/heroes-service-network</a></p>
+<p>For convenience only, we will create the network we used in our main <a href="https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/" rel="nofollow">tutorial</a>.</p>
+<ol>
+<li><a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#installation-guide">Installation Guide</a>
+<ol>
+<li><a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#prepare-env">Prepare Environment</a></li>
+<li><a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#dependencies">Dependencies</a></li>
+</ol>
+</li>
+<li><a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#configuration">Configuration</a>
+<ol>
+<li><a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#crypto-config">Crypto-Config</a></li>
+<li><a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#artifacts">Artifacts</a></li>
+</ol>
+</li>
+<li><a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#docker-compose">Docker-Compose</a></li>
+<li><a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#conclusion">Conclusion</a></li>
+</ol>
+<h2 id="installation-guide">&nbsp;1. Installation Guide</h2>
+<h3 id="prepare-env">a. Prepare environment</h3>
+<p>Before doing anything let’s create our working directory :</p>
+<pre><code>mkdir -p $GOPATH/src/github.com/chainHero/heroes-service-network</code></pre>
+<h3 id="dependencies">b. Dependencies</h3>
+<p>In order for us to correctly create our network we need few binaries provided by Hyperledger Fabric (v1.0.5).</p>
+<p>You can either use the binaries we provide or download them from the official repository.</p>
+<h4>Download them from our repository (Linux x64 ONLY):</h4>
+<pre><code>cd $GOPATH/src/github.com/chainHero/heroes-service-network &amp;&amp; \
+svn checkout https://github.com/chainHero/heroes-service-network/branches/master/bin</code></pre>
+<h4>Download them from the official repository:</h4>
+<ul>
+<li><a href="https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/linux-s390x-1.0.5/hyperledger-fabric-linux-s390x-1.0.5.tar.gz" rel="nofollow">Linux s390x</a></li>
+<li><a href="https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/linux-ppc64le-1.0.5/hyperledger-fabric-linux-ppc64le-1.0.5.tar.gz" rel="nofollow">Linux PPC64Ie</a></li>
+<li><a href="https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/linux-amd64-1.0.5/hyperledger-fabric-linux-amd64-1.0.5.tar.gz" rel="nofollow">Linux AMD 64</a></li>
+<li><a href="https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/windows-amd64-1.0.5/hyperledger-fabric-windows-amd64-1.0.5.tar.gz" rel="nofollow">Windows AMD 64</a></li>
+<li><a href="https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/darwin-amd64-1.0.5/hyperledger-fabric-darwin-amd64-1.0.5.tar.gz" rel="nofollow">Darwin AMD 64</a></li>
+</ul>
+<p>Once that you have downloaded the bin folder, move it into the <code>heroes-service-network</code> folder.</p>
+<h2 id="configuration">2. Configuration</h2>
+<h3 id="crypto-config">a. Crypto-config</h3>
+<p>To get started we need to define what our network will be composed of. To do so, we need a configuration file.</p>
+<p>It will contains the network topology and allows us to generate a set of certificates and keys for both the Organizations and the components that belong to those Organizations.</p>
+<p>Let’s create it and start editing it :</p>
+<pre><code>cd $GOPATH/src/github.com/chainHero/heroes-service-network &amp;&amp; \
+touch crypto-config.yaml &amp;&amp; \
+vi crypto-config.yaml</code></pre>
+<p>And paste this inside :</p>
+<pre><code># "OrdererOrgs" - Definition of organizations managing orderer nodes
+OrdererOrgs:
+  - Name: ChainHero
+    Domain: hf.chainhero.io
+    # Specs is an array of Spec entries.  Each Spec entry consists of two fields : Hostname and CommonName
+    Specs:
+      - Hostname: orderer
+# "PeerOrgs" - Definition of organizations managing peer nodes
+PeerOrgs:
+  - Name: Org1ChainHero
+    Domain: org1.hf.chainhero.io
+    # Allows for the definition of 1 or more hosts that are created sequentially
+    # from a template. By default, this looks like "peer%d" from 0 to Count-1.
+    # You may override the number of nodes (Count), the starting index (Start)
+    # or the template used to construct the name (Hostname).
+    Template:
+      Count: 2
+    Users:
+      # The number of user accounts _in addition_ to Admin
+      Count: 2</code></pre>
+<p>I added few comments for you to understand better what every lines stands for but if you want more information about it you should have a look <a href="http://hyperledger-fabric.readthedocs.io/en/release-1.1/commands/cryptogen-commands.html" rel="nofollow">here.</a></p>
+<p>Now that our configuration file is set up we can use it to create the basis of our network. To do so we will use the <strong>Cryptogen</strong> tool to generate the cryptographic material (x509 certs) for our various network entities. <strong>cryptogen</strong> is an utility for generating Hyperledger Fabric key material, however it is mainly meant to be used for testing environment.</p>
+<p>Let’s now create a folder named <code>crypto-config</code> and use <strong>cryptogen</strong> to initialize our network :</p>
+<pre><code>cd $GOPATH/src/github.com/chainHero/heroes-service-network &amp;&amp; \
+mkdir -p crypto-config &amp;&amp; \
+./bin/cryptogen generate --config=./crypto-config.yaml</code></pre>
+<p>Ok, we are done with the crypto files (certificates). You must be able to see two folders inside the <code>crypto-config</code> folder. It must be <code>ordererOrganizations</code> &amp; <code>peerOrganizations</code>.</p>
+<h3 id="artifacts">b. Artifacts</h3>
+<p>In order for us to finish the initialization of our blockchain we need to create :</p>
+<ul>
+<li>The orderer genesis block. It is intended, as its name indicates, to correctly initialize Fabric’s orderers.</li>
+<li>A channel genesis block. The channel is a kind of private network inside the main network which our users will be able to use. This allows you to initialize Fabric’s peers to join a channel.</li>
+<li>An anchor peer. Its a peer node with an additional feature which allow all other peers to discover and communicate with it.</li>
+</ul>
+<p>So let’s create this by editing a configuration file named <code>configtx.yaml</code> :</p>
+<pre><code>cd $GOPATH/src/github.com/chainHero/heroes-service-network &amp;&amp; \
+touch configtx.yaml &amp;&amp; \
+vi configtx.yaml</code></pre>
+<p>Paste this inside :</p>
+<pre><code>################################################################################
+#
+#   SECTION : Profile
+#
+#   - Different configuration profiles may be encoded here to be specified
+#   as parameters to the configtxgen tool. The profiles which specify consortiums
+#   are to be used for generating the orderer genesis block.  With the correct
+#   consortium members defined in the orderer genesis block, channel creation
+#   requests may be generated with only the org member names and a consortium name
+#
+################################################################################
+Profiles:
+    ChainHero:
+        Orderer:
+            &lt;&lt;: *OrdererDefaults
+            Organizations:
+                - *ChainHero
+        Application:
+            &lt;&lt;: *ApplicationDefaults
+            Organizations:
+                - *Org1ChainHero
+        Consortium: SampleConsortium
+        Consortiums:
+            SampleConsortium:
+                Organizations:
+                    - *ChainHero
+                    - *Org1ChainHero
+
+################################################################################
+#
+#   SECTION: Organizations
+#
+#   - This section defines the different organizational identities which will
+#   be referenced later in the configuration.
+#
+################################################################################
+Organizations:
+    - &amp;ChainHero
+        Name: ChainHero
+        ID: hf.chainhero.io
+        AdminPrincipal: Role.ADMIN
+        MSPDir: crypto-config/ordererOrganizations/hf.chainhero.io/msp
+
+    - &amp;Org1ChainHero
+        Name: ChainHeroOrganization1
+        ID: org1.hf.chainhero.io
+        AdminPrincipal: Role.ADMIN
+        MSPDir: crypto-config/peerOrganizations/org1.hf.chainhero.io/msp
+        AnchorPeers:
+            - Host: peer0.org1.hf.chainhero.io
+              Port: 7051
+
+################################################################################
+#
+#   SECTION: Orderer
+#
+#   - This section defines the values to encode into a config transaction or
+#   genesis block for orderer related parameters.
+#
+################################################################################
+Orderer: &amp;OrdererDefaults
+    OrdererType: solo
+    Addresses:
+        - orderer.hf.chainhero.io:7050
+    BatchTimeout: 5s
+    # Batch Size: Controls the number of messages batched into a block.
+    BatchSize:
+        # Max Message Count: The maximum number of messages to permit in a batch.
+        MaxMessageCount: 10
+        # Absolute Max Bytes: The absolute maximum number of bytes allowed for
+        # the serialized messages in a batch. If the "kafka" OrdererType is
+        # selected, set 'message.max.bytes' and 'replica.fetch.max.bytes' on the
+        # Kafka brokers to a value that is larger than this one.
+        AbsoluteMaxBytes: 98 MB
+        # Preferred Max Bytes: The preferred maximum number of bytes allowed for
+        # the serialized messages in a batch. A message larger than the
+        # preferred max bytes will result in a batch larger than preferred max
+        # bytes.
+        PreferredMaxBytes: 512 KB
+    # Max Channels is the maximum number of channels to allow on the ordering
+    # network. When set to 0, this implies no maximum number of channels.
+    MaxChannels: 0
+
+    # Organizations is the list of orgs which are defined as participants on
+    # the orderer side of the network.
+    Organizations:
+
+################################################################################
+#
+#   SECTION: Application
+#
+#   - This section defines the values to encode into a config transaction or
+#   genesis block for application related parameters.
+#
+################################################################################
+Application: &amp;ApplicationDefaults
+    Organizations:</code></pre>
+<p>Now that our configuration file is ready to use let's create the artifacts folder, which will contain the output files generated by the binary <code>configtxgen</code> :</p>
+<pre><code>cd $GOPATH/src/github.com/chainHero/heroes-service-network &amp;&amp; \
+mkdir -p artifacts</code></pre>
+<p>Then, let's use the provided binary and our configuration file to create our genesis block :</p>
+<pre><code>cd $GOPATH/src/github.com/chainHero/heroes-service-network &amp;&amp; \
+FABRIC_CFG_PATH=$PWD ./bin/configtxgen -profile ChainHero -outputBlock ./artifacts/orderer.genesis.block</code></pre>
+<blockquote><p>Note that we have to set the environment variable <code>FABRIC_CFG_PATH</code> with the current working directoring (that contains the configuration) because the binary find the configuration file named <code>configtx.yaml</code> through this environment variable.</p></blockquote>
+<p>Now that it have been created let's see how we create the channel :</p>
+<pre><code>FABRIC_CFG_PATH=$PWD ./bin/configtxgen -profile ChainHero -outputCreateChannelTx ./artifacts/chainhero.channel.tx -channelID chainhero</code></pre>
+<p>Finally, we need a peer node which is called <strong>the anchor peer</strong> :</p>
+<pre><code>FABRIC_CFG_PATH=$PWD ./bin/configtxgen -profile ChainHero -outputAnchorPeersUpdate ./artifacts/org1.chainhero.anchors.tx -channelID chainhero -asOrg ChainHeroOrganization1</code></pre>
+<h2 id="docker-compose">3. Docker-Compose</h2>
+<p>In order now to communicate and launch our network which will be Docker based we need to use Docker-Compose. It's an useful tool which will allow us to launch several dockers at the same time.</p>
+<p>If you need to install docker-compose then I'm going to redirect you to one of our tutorial in which we explain step by step how to install docker and docker-compose.</p>
+<ul>
+<li><a href="https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/#docker">Docker</a></li>
+<li><a href="https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/#docker-compose">Docker-compose</a></li>
+</ul>
+<p>Now that you are all caught up with the installation part we can move on and start the implementation of our network configuration.</p>
+<p>So, create a file named <code>docker-compose.yaml</code> and paste the following lines into it :</p>
+<pre><code>version: '2'
+
+networks:
+  default:
+
+services:
+
+  orderer.hf.chainhero.io:
+    image: hyperledger/fabric-orderer:x86_64-1.0.5
+    container_name: orderer.hf.chainhero.io
+    environment:
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISPROFILE=ChainHero
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=hf.chainhero.io
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - ./artifacts/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/hf.chainhero.io/orderers/orderer.hf.chainhero.io/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/hf.chainhero.io/orderers/orderer.hf.chainhero.io/tls:/var/hyperledger/orderer/tls
+    ports:
+      - 7050:7050
+    networks:
+      default:
+        aliases:
+          - orderer.hf.chainhero.io
+
+  ca.org1.hf.chainhero.io:
+    image: hyperledger/fabric-ca:x86_64-1.0.5
+    container_name: ca.org1.hf.chainhero.io
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.org1.hf.chainhero.io
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.hf.chainhero.io-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/--HERE--
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.hf.chainhero.io-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/--HERE--
+    ports:
+      - 7054:7054
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/org1.hf.chainhero.io/ca/:/etc/hyperledger/fabric-ca-server-config
+    networks:
+      default:
+        aliases:
+          - ca.org1.hf.chainhero.io
+
+  peer0.org1.hf.chainhero.io:
+    image: hyperledger/fabric-peer:x86_64-1.0.5
+    container_name: peer0.org1.hf.chainhero.io
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_NETWORKID=chainhero
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_ID=peer0.org1.hf.chainhero.io
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_ADDRESS=peer0.org1.hf.chainhero.io:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.hf.chainhero.io:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_LOCALMSPID=org1.hf.chainhero.io
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer0.org1.hf.chainhero.io
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/org1.hf.chainhero.io/peers/peer0.org1.hf.chainhero.io/msp:/var/hyperledger/msp
+      - ./crypto-config/peerOrganizations/org1.hf.chainhero.io/peers/peer0.org1.hf.chainhero.io/tls:/var/hyperledger/tls
+    ports:
+      - 7051:7051
+      - 7053:7053
+    depends_on:
+      - orderer.hf.chainhero.io
+    links:
+      - orderer.hf.chainhero.io
+    networks:
+      default:
+        aliases:
+          - peer0.org1.hf.chainhero.io
+
+  peer1.org1.hf.chainhero.io:
+    image: hyperledger/fabric-peer:x86_64-1.0.5
+    container_name: peer1.org1.hf.chainhero.io
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_NETWORKID=chainhero
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_ID=peer1.org1.hf.chainhero.io
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_ADDRESS=peer1.org1.hf.chainhero.io:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.hf.chainhero.io:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_LOCALMSPID=org1.hf.chainhero.io
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer1.org1.hf.chainhero.io
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/org1.hf.chainhero.io/peers/peer1.org1.hf.chainhero.io/msp:/var/hyperledger/msp
+      - ./crypto-config/peerOrganizations/org1.hf.chainhero.io/peers/peer1.org1.hf.chainhero.io/tls:/var/hyperledger/tls
+    ports:
+      - 8051:7051
+      - 8053:7053
+    depends_on:
+      - orderer.hf.chainhero.io
+    links:
+      - orderer.hf.chainhero.io
+    networks:
+      default:
+        aliases:
+          - peer1.org1.hf.chainhero.io</code></pre>
+<p><strong>Be careful, you need to change something in the file !</strong></p>
+<p>In the 'docker-compose.yaml' file you need to replace <strong>BOTH</strong> <code>--HERE--</code> by the name of the certificate key file located at :</p>
+<pre><code>heroes-service-network/crypto-config/peerOrganizations/org1.hf.chainhero.io/ca/</code></pre>
+<p>However, as you might have seen there is 2 files located here (the certificate and the key), the name of the file you need to copy should be something like that (finish with <code>_sk</code>):</p>
+<pre><code>943fcd5dd60bfc47beeaa0a4736f75c0b0acbe13efb95cb5444e83cf12e0521b_sk</code></pre>
+<h2 id="conclusion">4. Conclusion</h2>
+<p>Now that your Hyperledger-Fabric Network is perfectly set up you can launch it :</p>
+<pre><code>cd $GOPATH/src/github.com/chainHero/heroes-service-network &amp;&amp; \
+docker-compose up -d</code></pre>
+<p><a href="https://github.com/chainHero/heroes-service-network/blob/master/docs/images/docker-ps.png" target="_blank" rel="noopener"><img src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/docker-ps.png" alt="Screenshot Docker ps"></a></p>
+<blockquote><p>If everything is working fine you must see the same output displayed above after executing the command <code>docker ps</code></p></blockquote>
+<p>Enjoy your first Hyperledger Fabric network !</p>
+<p>You can now build your application! To go further follow the tutorial to create your first application: <a href="https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/" rel="nofollow">https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/</a></p>
+<p>&nbsp;</p>
+<!-- Simple Share Buttons Adder (7.4.18) simplesharebuttons.com --><div id="ssba-classic-2" class="ssba ssbp-wrap left ssbp--theme-1"><div style="text-align:center"><a data-site="" class="ssba_facebook_share" href="http://www.facebook.com/sharer.php?u=https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/" target="_blank"><img src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/facebook.png" style="width: 35px;" title="Facebook" class="ssba ssba-img" alt="Share on Facebook"><div title="Facebook" class="ssbp-text">Facebook</div></a><a data-site="" class="ssba_twitter_share" href="http://twitter.com/share?url=https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/&amp;text=Tutorial%20Hyperledger%20Fabric%3A%20How%20to%20build%20your%20first%20network%3F%20" target="&quot;_blank&quot;"><img src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/twitter.png" style="width: 35px;" title="Twitter" class="ssba ssba-img" alt="Tweet about this on Twitter"><div title="Twitter" class="ssbp-text">Twitter</div></a><a data-site="linkedin" class="ssba_linkedin_share ssba_share_link" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/" target="&quot;_blank&quot;"><img src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/linkedin.png" style="width: 35px;" title="LinkedIn" class="ssba ssba-img" alt="Share on LinkedIn"><div title="Linkedin" class="ssbp-text">Linkedin</div></a><a data-site="" class="ssba_google_share" href="https://plus.google.com/share?url=https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/" target="&quot;_blank&quot;"><img src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/google.png" style="width: 35px;" title="Google+" class="ssba ssba-img" alt="Share on Google+"><div title="Google+" class="ssbp-text">Google+</div></a><a data-site="buffer" class="ssba_buffer_share" href="https://bufferapp.com/add?url=https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/&amp;text=%20Tutorial%20Hyperledger%20Fabric:%20How%20to%20build%20your%20first%20network?" target="&quot;_blank&quot;"><img src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/buffer.png" style="width: 35px;" title="Buffer" class="ssba ssba-img" alt="Buffer this page"><div title="Buffer" class="ssbp-text">Buffer</div></a><a data-site="email" class="ssba_email_share" href="mailto:?subject=Tutorial%20Hyperledger%20Fabric:%20How%20to%20build%20your%20first%20network?&amp;body=%20https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/"><img src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/email.png" style="width: 35px;" title="Email" class="ssba ssba-img" alt="Email this to someone"><div title="email" class="ssbp-text">email</div></a><a data-site="print" class="ssba_print ssba_share_link " href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#" onclick="window.print()"><img src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/print.png" style="width: 35px;" title="Print" class="ssba ssba-img" alt="Print this page"><div title="Print" class="ssbp-text">Print</div></a></div></div></div><footer class="entry-footer"><div class="post-tags"></div></footer>		
+</article>
+
+
+<div id="comments" class="comments-area">
+
+	    
+    	<div class="separator-line">
+		</div>
+    
+        <h3 class="comments-title">
+            2 comments        </h3>
+    
+            
+        <div class="comment-list">
+            			<div class="comment even thread-even depth-1" id="comment-187">
+            	<div class="comment-nested">
+                </div>
+				<div class="comment-author vcard clear">
+					<img alt="" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/6ac41e55769c01bed81cd7866ce2a237.png" srcset="https://secure.gravatar.com/avatar/6ac41e55769c01bed81cd7866ce2a237?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40">					<div class="fn author-name">
+                    	BlockMcChainy                    </div>
+                    <div class="comment-meta">
+                        <a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#comment-187" class="comment-date">
+                            25 April 2018                        </a>
+						                        <a rel="nofollow" class="comment-reply-link" href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#comment-187" onclick="return addComment.moveForm( &quot;comment-187&quot;, &quot;187&quot;, &quot;respond&quot;, &quot;494&quot; )" aria-label="Reply to BlockMcChainy">Reply</a>                    </div>
+				</div>
+				<div class="comment-text">
+					<p>Great tutorial</p>
+<p>Forgive me for being a noob but how can I interact with the network?<br>
+Are there some ways to add another peer or upload chaincode.</p>
+<p>Regards,</p>
+<p>Block McChainy</p>
+				</div>
+                					<div class="comment byuser comment-author-tohero bypostauthor odd alt depth-2" id="comment-189">
+            	<div class="comment-nested">
+                </div>
+				<div class="comment-author vcard clear">
+					<img alt="" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/a34a34ceb432b6e23073be598c837679.png" srcset="https://secure.gravatar.com/avatar/a34a34ceb432b6e23073be598c837679?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40">					<div class="fn author-name">
+                    	chainHero                    </div>
+                    <div class="comment-meta">
+                        <a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#comment-189" class="comment-date">
+                            27 April 2018                        </a>
+						                        <a rel="nofollow" class="comment-reply-link" href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#comment-189" onclick="return addComment.moveForm( &quot;comment-189&quot;, &quot;189&quot;, &quot;respond&quot;, &quot;494&quot; )" aria-label="Reply to chainHero">Reply</a>                    </div>
+				</div>
+				<div class="comment-text">
+					<p>Hi,<br>
+Thank you for your feedback.<br>
+This tutorial allows to create a development network, for production it is better to avoid using docker-compose.<br>
+But it is quite possible to add peers! If you always use the same “docker-compose.yaml” file, then just edit it to add the new peer and do “docker-compose up”, this will only launch the new containers.<br>
+If you need more crypto materials, like a new peer in the “crypto-config”, it is also possible to do it with the “cryptogen” tool (only with the HF v1.1 binary). Edit your “crypto-config.yaml” and run “./cryptogen extend” (see the help by running “./cryptogen –help”).<br>
+Finally, to install and instantiate new chaincode, you need to use the Fabric CLI or build your own application that will make it for you. An example is provided in this tutorial: <a href="https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/" rel="nofollow">https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/</a></p>
+				</div>
+                		</div><!-- #comment-## -->
+</div><!-- #comment-## -->
+        </div>
+    
+            
+        
+    	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="https://chainhero.io/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+				
+		<div class="comment-form-field comment-form-author">
+			<label for="author">Name</label>
+			<input id="author" name="author" type="text" placeholder="Name" value="" size="30" aria-required="true">
+		</div>
+	
+
+		<div class="comment-form-field comment-form-email">
+			<label for="email">Email</label>
+			<input id="email" name="email" type="text" placeholder="Email" value="" size="30" aria-required="true">
+		</div>
+	
+
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"><label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+
+		<div class="comment-form-comment">
+			<textarea id="comment" name="comment" placeholder="Comment" cols="45" rows="8" aria-required="true"></textarea>
+		</div>
+	<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Submit Comment"> <input type="hidden" name="comment_post_ID" value="494" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="292ecad9be"></p><p style="display: none;"></p>			<input type="hidden" id="ak_js" name="ak_js" value="1528986173002"></form>
+			</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank">Learn how your comment data is processed</a>.</p>		
+</div>    
+        </main>
+    </div>
+    
+        
+</div>
+
+
+            </div><!-- .site-content -->
+			
+						<div class="after-content">
+			</div>
+            
+            <footer class="site-footer">
+				
+								                    <div class="widget-area sidebar-footer clear">
+                        <div class="bnt-container">
+                            		<div id="recent-posts-5" class="column-2 widget widget-footer widget_recent_entries clear">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+											<li>
+					<a href="https://chainhero.io/2018/04/tutorial-hyperledger-fabric-how-to-build-your-first-network/">Tutorial Hyperledger Fabric: How to build your first network?</a>
+									</li>
+											<li>
+					<a href="https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/">Tutorial Hyperledger Fabric SDK Go: How to build your first app? (v1.0.5)</a>
+									</li>
+											<li>
+					<a href="https://chainhero.io/2017/10/ibm-blockchain-explored-blockaudit/">IBM Blockchain Explored: Blockaudit</a>
+									</li>
+					</ul>
+		</div><div id="sow-social-media-buttons-2" class="column-2 widget widget-footer widget_sow-social-media-buttons clear"><div class="so-widget-sow-social-media-buttons so-widget-sow-social-media-buttons-wire-17c97861961a">
+<div class="social-media-button-container">
+	
+		<a class="ow-button-hover sow-social-media-button-twitter sow-social-media-button" title="Twitter @chainhero_io" aria-label="Twitter @chainhero_io" target="_blank" rel="noopener noreferrer" href="https://twitter.com/chainhero_io">
+			<span>
+								<span class="sow-icon-fontawesome" data-sow-icon=""></span>							</span>
+		</a>
+	
+		<a class="ow-button-hover sow-social-media-button-envelope sow-social-media-button" title="E-mail chainHero" aria-label="E-mail chainHero" target="_blank" rel="noopener noreferrer" href="mailto:contact@chainhero.io">
+			<span>
+								<span class="sow-icon-fontawesome" data-sow-icon=""></span>							</span>
+		</a>
+	
+		<a class="ow-button-hover sow-social-media-button-github sow-social-media-button" title="Github chainHero" aria-label="Github chainHero" target="_blank" rel="noopener noreferrer" href="https://github.com/chainHero">
+			<span>
+								<span class="sow-icon-fontawesome" data-sow-icon=""></span>							</span>
+		</a>
+	
+		<a class="ow-button-hover sow-social-media-button-linkedin sow-social-media-button" title="chainHero on Linkedin" aria-label="chainHero on Linkedin" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/showcase/11093311/">
+			<span>
+								<span class="sow-icon-fontawesome" data-sow-icon=""></span>							</span>
+		</a>
+	</div>
+</div></div>                        </div>
+                	</div>
+                                    
+				                <div class="bottom-footer clear">
+                	<div class="bnt-container">
+					
+												
+                        <div class="footer-copyright">© 2018 <a href="https://chainhero.io/">chainHero</a></div>						
+                    </div>
+                </div>
+                
+            </footer><!-- .site-footer -->
+
+		</div><!-- .site-wrapper -->
+		
+					<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-60598476-3', 'auto');
+		ga('send', 'pageview');
+	</script>
+<link rel="stylesheet" id="simple-share-buttons-adder-ssba-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/ssba.css" type="text/css" media="all">
+<style id="simple-share-buttons-adder-ssba-inline-css" type="text/css">
+	.ssba {
+									
+									
+									
+									
+								}
+								.ssba img
+								{
+									width: 35px !important;
+									padding: 6px;
+									border:  0;
+									box-shadow: none !important;
+									display: inline !important;
+									vertical-align: middle;
+									box-sizing: unset;
+								}
+								
+								#ssba-classic-2 .ssbp-text {
+									display: none!important;
+								}
+								
+								.ssba .fb-save
+								{
+								padding: 6px;
+								line-height: 30px; }
+								.ssba, .ssba a
+								{
+									text-decoration:none;
+									background: none;
+									font-family: Indie Flower;
+									font-size: 20px;
+									
+									font-weight: bold;
+								}
+								
+@font-face {
+				font-family: 'ssbp';
+				src:url('https://chainhero.io/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.eot?xj3ol1');
+				src:url('https://chainhero.io/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.eot?#iefixxj3ol1') format('embedded-opentype'),
+					url('https://chainhero.io/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.woff?xj3ol1') format('woff'),
+					url('https://chainhero.io/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.ttf?xj3ol1') format('truetype'),
+					url('https://chainhero.io/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.svg?xj3ol1#ssbp') format('svg');
+				font-weight: normal;
+				font-style: normal;
+
+				/* Better Font Rendering =========== */
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+</style>
+<link rel="stylesheet" id="sow-social-media-buttons-wire-17c97861961a-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/sow-social-media-buttons-wire-17c97861961a.css" type="text/css" media="all">
+<link rel="stylesheet" id="siteorigin-widget-icon-font-fontawesome-css" href="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/style(3).css" type="text/css" media="all">
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/ssba.js"></script>
+<script type="text/javascript">
+Main.boot( [] );
+</script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/particles.min.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/main.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/imagesloaded.min.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/isotope.pkgd.min.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/packery-mode.pkgd.min.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/fit-columns.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/jquery.fitvids.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var bentoThemeVars = {"menu_config":"","fixed_menu":"1","ajaxurl":"https:\/\/chainhero.io\/wp-admin\/admin-ajax.php","query_vars":"{\"post_type\":\"\",\"paged\":1,\"posts_per_page\":\"10\"}","max_pages":"1","grid_mode":"nogrid","full_width_grid":"off"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/theme-scripts.js"></script>
+<script type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/wp-embed.min.js"></script>
+<script async="async" type="text/javascript" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/form.js"></script>
+
+	
+    
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Tutorial Hyperledger Fabric_ How to build your first network_ - chainHero_files/mAiQUwlReIP.html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div></body></html>
