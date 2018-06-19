@@ -177,8 +177,8 @@ services:
         - ./crypto-config/peerOrganizations/org2.hf.medchain.global/peers/peer0.org2.hf.medchain.global/msp:/var/hyperledger/msp
         - ./crypto-config/peerOrganizations/org2.hf.medchain.global/peers/peer0.org2.hf.medchain.global/tls:/var/hyperledger/tls
       ports:
-        - 7051:7051
-        - 7053:7053
+        - 9051:9051
+        - 9053:9053
       depends_on:
         - orderer.hf.medchain.global
       links:
@@ -218,8 +218,8 @@ services:
         - ./crypto-config/peerOrganizations/org2.hf.medchain.global/peers/peer1.org2.hf.medchain.global/msp:/var/hyperledger/msp
         - ./crypto-config/peerOrganizations/org2.hf.medchain.global/peers/peer1.org2.hf.medchain.global/tls:/var/hyperledger/tls
       ports:
-        - 8051:7051
-        - 8053:7053
+        - 8061:9051
+        - 8063:9053
       depends_on:
         - orderer.hf.medchain.global
       links:
@@ -228,3 +228,25 @@ services:
         default:
           aliases:
             - peer1.org2.hf.medchain.global
+
+
+  ca.org2.hf.medchain.global:
+      image: hyperledger/fabric-ca:x86_64-1.0.5
+      container_name: ca.org2.hf.medchain.global
+      environment:
+        - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+        - FABRIC_CA_SERVER_CA_NAME=ca.org2.hf.medchain.global
+        - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org2.hf.medchain.global-cert.pem
+        - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/5289b538c2d82ffaedc0922070c8425ca5763a6727710a71803590228fd35a72_sk
+        - FABRIC_CA_SERVER_TLS_ENABLED=true
+        - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org2.hf.medchain.global-cert.pem
+        - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/5289b538c2d82ffaedc0922070c8425ca5763a6727710a71803590228fd35a72_sk
+      ports:
+        - 7074:7074
+      command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+      volumes:
+        - ./crypto-config/peerOrganizations/org2.hf.medchain.global/ca/:/etc/hyperledger/fabric-ca-server-config
+      networks:
+        default:
+          aliases:
+            - ca.org2.hf.medchain.global
