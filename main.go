@@ -15,16 +15,26 @@ func main() {
 		ChannelID:     "emr",
 		ChannelConfig: os.Getenv("GOPATH") + "/src/medchain/medchain-network/fixtures/artifacts/emr.channel.tx",
 
-		// Chaincode parameters
-		// ChainCodeID:     "medchain-network",
-		ChaincodeGoPath: os.Getenv("GOPATH"),
-		// ChaincodePath:   "medchain/medchain-network/chaincode/",
 		OrgAdmin:   "Admin",
 		OrgName:    "Org1",
 		ConfigFile: "config.yaml",
 
 		// User parameters
 		UserName: "User1",
+	}
+	// Chaincode parameters for Storage
+	ccSetupStorage := blockchain.ChaincodeSetup{
+		ChainCodeID:      "StorageChainCode",
+		ChaincodeGoPath:  os.Getenv("GOPATH"),
+		ChaincodePath:    "medchain/medchain-network/chaincode/storage",
+		ChaincodeVersion: "1.0",
+	}
+	// Chaincode parameters for Provider
+	ccSetupProvider := blockchain.ChaincodeSetup{
+		ChainCodeID:      "ProviderChainCode",
+		ChaincodeGoPath:  os.Getenv("GOPATH"),
+		ChaincodePath:    "medchain/medchain-network/chaincode/provider",
+		ChaincodeVersion: "2.0",
 	}
 
 	// Initialization of the Fabric SDK from the previously set properties
@@ -34,15 +44,13 @@ func main() {
 	}
 
 	// Install and instantiate the chaincode
-	ChaincodePath := "medchain/medchain-network/chaincode/storage/"
-	err = fSetup.InstallAndInstantiateCC("StorageChainCode", ChaincodePath, "1.0")
+	err = fSetup.InstallAndInstantiateCC(ccSetupStorage)
 	if err != nil {
 		fmt.Printf("Unable to install and instantiate the chaincode: %v\n", err)
 	}
 
 	// Install and instantiate the chaincode
-	ChaincodePath = "medchain/medchain-network/chaincode/provider/"
-	err = fSetup.InstallAndInstantiateCC("ProviderChainCode", ChaincodePath, "2.0")
+	err = fSetup.InstallAndInstantiateCC(ccSetupProvider)
 	if err != nil {
 		fmt.Printf("Unable to install and instantiate the chaincode: %v\n", err)
 	}

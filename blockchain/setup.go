@@ -15,18 +15,25 @@ import (
 
 // FabricSetup implementation
 type FabricSetup struct {
-	ConfigFile      string
-	OrgID           string
-	ChannelID       string
-	initialized     bool
-	ChannelConfig   string
-	ChaincodeGoPath string
-	OrgAdmin        string
-	OrgName         string
-	UserName        string
-	client          chclient.ChannelClient
-	admin           resmgmt.ResourceMgmtClient
-	sdk             *fabsdk.FabricSDK
+	ConfigFile    string
+	OrgID         string
+	ChannelID     string
+	initialized   bool
+	ChannelConfig string
+	OrgAdmin      string
+	OrgName       string
+	UserName      string
+	client        chclient.ChannelClient
+	admin         resmgmt.ResourceMgmtClient
+	sdk           *fabsdk.FabricSDK
+}
+
+// Chaincode Setup implementation
+type ChaincodeSetup struct {
+	ChainCodeID      string
+	ChaincodePath    string
+	ChaincodeGoPath  string
+	ChaincodeVersion string
 }
 
 // Initialize reads the configuration file and sets up the client, chain and event hub
@@ -87,17 +94,17 @@ func (setup *FabricSetup) Initialize() error {
 	return nil
 }
 
-func (setup *FabricSetup) InstallAndInstantiateCC(ChainCodeID string, ChaincodePath string, ccVersion string) error {
+func (setup *FabricSetup) InstallAndInstantiateCC(ccsetup ChaincodeSetup) error {
 
 	// Create a new go lang chaincode package and initializing it with our chaincode
-	ccPkg, err := packager.NewCCPackage(ChaincodePath, setup.ChaincodeGoPath)
+	ccPkg, err := packager.NewCCPackage(ccsetup.ChaincodePath, ccsetup.ChaincodeGoPath)
 	if err != nil {
 		return fmt.Errorf("failed to create chaincode package: %v", err)
 	}
 
 	// Install our chaincode on org peers
 	// The resource management client send the chaincode to all peers in its channel in order for them to store it and interact with it later
-	installCCReq := resmgmt.InstallCCRequest{Name: ChainCodeID, Path: ChaincodePath, Version: ccVersion, Package: ccPkg}
+	installCCReq := resmgmt.InstallCCRequest{Name: ccsetup.ChainCodeID, Path: ccsetup.ChaincodePath, Version: ccsetup.ChaincodeVersion, Package: ccPkg}
 	_, err = setup.admin.InstallCC(installCCReq)
 	if err != nil {
 		return fmt.Errorf("failed to install cc to org peers %v", err)
@@ -111,7 +118,7 @@ func (setup *FabricSetup) InstallAndInstantiateCC(ChainCodeID string, ChaincodeP
 
 	// Instantiate our chaincode on org peers
 	// The resource management client tells to all peers in its channel to instantiate the chaincode previously installed
-	err = setup.admin.InstantiateCC(setup.ChannelID, resmgmt.InstantiateCCRequest{Name: ChainCodeID, Path: ChaincodePath, Version: ccVersion, Args: [][]byte{[]byte("init")}, Policy: ccPolicy})
+	err = setup.admin.InstantiateCC(setup.ChannelID, resmgmt.InstantiateCCRequest{Name: ccsetup.ChainCodeID, Path: ccsetup.ChaincodePath, Version: ccsetup.ChaincodeVersion, Args: [][]byte{[]byte("init")}, Policy: ccPolicy})
 	if err != nil {
 		return fmt.Errorf("failed to instantiate the chaincode: %v", err)
 	}
