@@ -27,14 +27,14 @@ func main() {
 		ChainCodeID:      "StorageChainCode",
 		ChaincodeGoPath:  os.Getenv("GOPATH"),
 		ChaincodePath:    "medchain/medchain-network/chaincode/storage",
-		ChaincodeVersion: "1.0",
+		ChaincodeVersion: "1.01",
 	}
 	// Chaincode parameters for Provider
 	ccSetupProvider := blockchain.ChaincodeSetup{
 		ChainCodeID:      "ProviderChainCode",
 		ChaincodeGoPath:  os.Getenv("GOPATH"),
 		ChaincodePath:    "medchain/medchain-network/chaincode/provider",
-		ChaincodeVersion: "2.0",
+		ChaincodeVersion: "2.01",
 	}
 
 	// Initialization of the Fabric SDK from the previously set properties
@@ -57,7 +57,9 @@ func main() {
 
 	// Launch the web application listening
 	app := &controllers.Application{
-		Fabric: &fSetup,
+		Fabric:     &fSetup,
+		CcStorage:  ccSetupStorage,
+		CcProvider: ccSetupProvider,
 	}
 	web.Serve(app)
 }
