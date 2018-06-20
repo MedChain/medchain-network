@@ -10,7 +10,7 @@
 #
 ################################################################################
 Profiles:
-    MedChain:
+    medchain:
         
         Orderer:
             <<: *OrdererDefaults
@@ -19,22 +19,47 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Org1MedChain
-                - *Org2MedChain
+                - *Providers
+                - *Storages
+                - *Patients
+                - *Researchers
         Consortium: SampleConsortium
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    # - *OrdererOrg
-                    - *Org1MedChain
-                    - *Org2MedChain
+                    - *OrdererOrg
+                    - *Providers
+                    - *Storages
+                    - *Patients
+                    - *Researchers
     emr:
         Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Org1MedChain  
-                - *Org2MedChain
+                - *Providers  
+                - *Storages
+    amr:
+        Consortium: SampleConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Providers  
+                - *Researchers
+    pii:
+        Consortium: SampleConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Providers  
+                - *Patients
+    directory:
+        Consortium: SampleConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Providers  
+                - *Patients
 ################################################################################
 #
 #   SECTION: Organizations
@@ -50,22 +75,41 @@ Organizations:
         AdminPrincipal: Role.ADMIN
         MSPDir: crypto-config/ordererOrganizations/hf.medchain.global/msp
 
-    - &Org1MedChain
-        Name: Org1MedChain
-        ID: org1.hf.medchain.global
+    - &Providers
+        Name: Providers
+        ID: providers.hf.medchain.global
         AdminPrincipal: Role.ADMIN
-        MSPDir: crypto-config/peerOrganizations/org1.hf.medchain.global/msp
+        MSPDir: crypto-config/peerOrganizations/providers.hf.medchain.global/msp
         AnchorPeers:
-            - Host: peer0.org1.hf.medchain.global
+            - Host: peer0.providers.hf.medchain.global
               Port: 7051
-    - &Org2MedChain
-        Name: Org2MedChain
-        ID: org2.hf.medchain.global
+    - &Storages
+        Name: Storages
+        ID: storages.hf.medchain.global
         AdminPrincipal: Role.ADMIN
-        MSPDir: crypto-config/peerOrganizations/org2.hf.medchain.global/msp
+        MSPDir: crypto-config/peerOrganizations/storages.hf.medchain.global/msp
         AnchorPeers:
-            - Host: peer0.org2.hf.medchain.global
+            - Host: peer0.storages.hf.medchain.global
               Port: 9051
+    - &Patients 
+        Name: Patients
+        ID: patients.hf.medchain.global
+        AdminPrincipal: Role.ADMIN
+        MSPDir: crypto-config/peerOrganizations/patients.hf.medchain.global/msp
+        AnchorPeers:
+            - Host: peer0.patients.hf.medchain.global
+            # fix port
+              Port: 9051
+    - &Researchers 
+        Name: Researchers
+        ID: researchers.hf.medchain.global
+        AdminPrincipal: Role.ADMIN
+        MSPDir: crypto-config/peerOrganizations/researchers.hf.medchain.global/msp
+        AnchorPeers:
+            - Host: peer0.researchers.hf.medchain.global
+            # fix port
+              Port: 9051
+        
 
 ################################################################################
 #

@@ -7,8 +7,8 @@ OrdererOrgs:
       - Hostname: orderer
 # "PeerOrgs" - Definition of organizations managing peer nodes
 PeerOrgs:
-  - Name: Org1MedChain
-    Domain: org1.hf.medchain.global
+  - Name: Providers
+    Domain: providers.hf.medchain.global
     # Allows for the definition of 1 or more hosts that are created sequentially
     # from a template. By default, this looks like "peer%d" from 0 to Count-1.
     # You may override the number of nodes (Count), the starting index (Start)
@@ -19,14 +19,23 @@ PeerOrgs:
       # Count: The number of user accounts _in addition_ to Admin
       Count: 2
 
-  - Name: Org2MedChain
-    Domain: org2.hf.medchain.global
-    # Allows for the definition of 1 or more hosts that are created sequentially
-    # from a template. By default, this looks like "peer%d" from 0 to Count-1.
-    # You may override the number of nodes (Count), the starting index (Start)
-    # or the template used to construct the name (Hostname).
+  - Name: Storages
+    Domain: storages.hf.medchain.global
     Template:
       Count: 2
     Users:
-      # Count: The number of user accounts _in addition_ to Admin
+      Count: 1
+
+  - Name: Researchers
+    Domain: researchers.hf.medchain.global
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
+  - Name: Patients
+    Domain: patients.hf.medchain.global
+    Template:
+      Count: 2
+    Users:
       Count: 1
