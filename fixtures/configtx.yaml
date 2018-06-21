@@ -25,32 +25,54 @@ Profiles:
                 - *Researchers
         Consortium: SampleConsortium
         Consortiums:
-            medchainConsortium:
+            SampleConsortium:
                 Organizations:
                     - *OrdererOrg
                     - *Providers
                     - *Storages
                     - *Patients
                     - *Researchers
+            EMR:
+                Organizations:
+                - *Providers
+                - *Storages
+            AMR: 
+                Organizations:
+                    - *Providers
+                    - *Researchers
+            PII: 
+                Organizations:
+                    - *Providers  
+                    - *Patients
+            DIR: 
+                Organizations:
+                    - *Providers
+                    - *Patients
+
+
     emr:
+        Consortium: EMR
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *Providers  
                 - *Storages
     amr:
+        Consortium: AMR
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *Providers  
                 - *Researchers
     pii:
+        Consortium: PII
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *Providers  
                 - *Patients
     directory:
+        Consortium: DIR
         Application:
             <<: *ApplicationDefaults
             Organizations:

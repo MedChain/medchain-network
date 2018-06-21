@@ -15,13 +15,9 @@ func main() {
 		ChannelID:     "emr",
 		ChannelConfig: os.Getenv("GOPATH") + "/src/medchain/medchain-network/fixtures/artifacts/emr.channel.tx",
 
-		// Chaincode parameters
-		ChainCodeID:     "medchain-network",
-		ChaincodeGoPath: os.Getenv("GOPATH"),
-		ChaincodePath:   "medchain/medchain-network/chaincode/",
-		OrgAdmin:        "Admin",
-		OrgName:         "Providers",
-		ConfigFile:      "config.yaml",
+		OrgAdmin:   "Admin",
+		OrgName:    "Providers",
+		ConfigFile: "config.yaml",
 
 		// User parameters
 		UserName: "User1",
