@@ -148,45 +148,85 @@ services:
 
 
   peer0.storages.hf.medchain.global:
-      image: hyperledger/fabric-peer:x86_64-1.0.5
-      container_name: peer0.storages.hf.medchain.global
-      environment:
-        - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-        - CORE_VM_DOCKER_ATTACHSTDOUT=true
-        - CORE_LOGGING_LEVEL=DEBUG
-        - CORE_PEER_NETWORKID=medchain
-        - CORE_PEER_PROFILE_ENABLED=true
-        - CORE_PEER_TLS_ENABLED=true
-        - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
-        - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
-        - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
-        - CORE_PEER_ID=peer0.storages.hf.medchain.global
-        - CORE_PEER_ADDRESSAUTODETECT=true
-        - CORE_PEER_ADDRESS=peer0.storages.hf.medchain.global:7051
-        - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.storages.hf.medchain.global:7051
-        - CORE_PEER_GOSSIP_USELEADERELECTION=true
-        - CORE_PEER_GOSSIP_ORGLEADER=false
-        - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
-        - CORE_PEER_LOCALMSPID=storages.hf.medchain.global
-        - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
-        - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer0.storages.hf.medchain.global
-      working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
-      command: peer node start
-      volumes:
-        - /var/run/:/host/var/run/
-        - ./crypto-config/peerOrganizations/storages.hf.medchain.global/peers/peer0.storages.hf.medchain.global/msp:/var/hyperledger/msp
-        - ./crypto-config/peerOrganizations/storages.hf.medchain.global/peers/peer0.storages.hf.medchain.global/tls:/var/hyperledger/tls
-      ports:
-        - 9051:9051
-        - 9053:9053
-      depends_on:
-        - orderer.hf.medchain.global
-      links:
-        - orderer.hf.medchain.global
-      networks:
-        default:
-          aliases:
-            - peer0.storages.hf.medchain.global
+  ##trying to split up into multipul yaml files
+    # container_name: peer1.storages.hf.medchain.global
+    # extends:
+    #     file:   base/peer-base.yaml
+    #     service: peer1.storages.hf.medchain.global
+    # links:
+    #     - orderer.hf.medchain.global
+    # depends_on:
+    #     - orderer.hf.medchain.global
+    # networks:
+    #   default:
+    #     aliases:
+    #       - peer1.storages.hf.medchain.global
+      
+    image: hyperledger/fabric-peer:x86_64-1.0.5
+    container_name: peer0.storages.hf.medchain.global
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_NETWORKID=medchain
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_ID=peer0.storages.hf.medchain.global
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_ADDRESS=peer0.storages.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.storages.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_LOCALMSPID=storages.hf.medchain.global
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer0.storages.hf.medchain.global
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/storages.hf.medchain.global/peers/peer0.storages.hf.medchain.global/msp:/var/hyperledger/msp
+      - ./crypto-config/peerOrganizations/storages.hf.medchain.global/peers/peer0.storages.hf.medchain.global/tls:/var/hyperledger/tls
+    ports:
+      - 9051:9051
+      - 9053:9053VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_NETWORKID=medchain
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_ID=peer0.storages.hf.medchain.global
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_ADDRESS=peer0.storages.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.storages.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_LOCALMSPID=storages.hf.medchain.global
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer0.storages.hf.medchain.global
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/storages.hf.medchain.global/peers/peer0.storages.hf.medchain.global/msp:/var/hyperledger/msp
+      - ./crypto-config/peerOrganizations/storages.hf.medchain.global/peers/peer0.storages.hf.medchain.global/tls:/var/hyperledger/tls
+    ports:
+      - 9051:9051
+      - 9053:9053
+    depends_on:
+      - orderer.hf.medchain.global
+    links:
+      - orderer.hf.medchain.global
+    networks:
+      default:
+        aliases:
+          - peer0.storages.hf.medchain.global
 
   peer1.storages.hf.medchain.global:
     image: hyperledger/fabric-peer:x86_64-1.0.5
@@ -228,6 +268,189 @@ services:
       default:
         aliases:
           - peer1.storages.hf.medchain.global
+      # depends_on:
+      #   - orderer.hf.medchain.global
+      # links:
+      #   - orderer.hf.medchain.global
+      # networks:
+      #   default:
+      #     aliases:
+      #       - peer0.storages.hf.medchain.global
+
+
+
+
+
+  peer0.patients.hf.medchain.global:
+    image: hyperledger/fabric-peer:x86_64-1.0.5
+    container_name: peer0.patients.hf.medchain.global
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_NETWORKID=medchain
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_ID=peer0.patients.hf.medchain.global
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_ADDRESS=peer0.storages.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.patients.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_LOCALMSPID=patients.hf.medchain.global
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer0.patients.hf.medchain.global
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/patients.hf.medchain.global/peers/peer0.patients.hf.medchain.global/msp:/var/hyperledger/msp
+      - ./crypto-config/peerOrganizations/patients.hf.medchain.global/peers/peer0.patients.hf.medchain.global/tls:/var/hyperledger/tls
+    ports:
+      - 10061:10051
+      - 10063:10053
+    depends_on:
+      - orderer.hf.medchain.global
+    links:
+      - orderer.hf.medchain.global
+    networks:
+      default:
+        aliases:
+          - peer0.patients.hf.medchain.global
+  peer1.patients.hf.medchain.global:
+    image: hyperledger/fabric-peer:x86_64-1.0.5
+    container_name: peer1.patients.hf.medchain.global
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_NETWORKID=medchain
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_ID=peer1.patients.hf.medchain.global
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_ADDRESS=peer1.storages.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.patients.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_LOCALMSPID=patients.hf.medchain.global
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer1.patients.hf.medchain.global
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/patients.hf.medchain.global/peers/peer1.patients.hf.medchain.global/msp:/var/hyperledger/msp
+      - ./crypto-config/peerOrganizations/patients.hf.medchain.global/peers/peer1.patients.hf.medchain.global/tls:/var/hyperledger/tls
+    ports:
+      - 10081:10071
+      - 10073:10073
+    depends_on:
+      - orderer.hf.medchain.global
+    links:
+      - orderer.hf.medchain.global
+    networks:
+      default:
+        aliases:
+          - peer0.patients.hf.medchain.global
+
+
+
+
+
+
+
+
+
+  peer0.researchers.hf.medchain.global:
+      image: hyperledger/fabric-peer:x86_64-1.0.5
+      container_name: peer0.researchers.hf.medchain.global
+      environment:
+        - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+        - CORE_VM_DOCKER_ATTACHSTDOUT=true
+        - CORE_LOGGING_LEVEL=DEBUG
+        - CORE_PEER_NETWORKID=medchain
+        - CORE_PEER_PROFILE_ENABLED=true
+        - CORE_PEER_TLS_ENABLED=true
+        - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+        - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+        - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+        - CORE_PEER_ID=peer0.researchers.hf.medchain.global
+        - CORE_PEER_ADDRESSAUTODETECT=true
+        - CORE_PEER_ADDRESS=peer0.researchers.hf.medchain.global:7051
+        - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.researchers.hf.medchain.global:7051
+        - CORE_PEER_GOSSIP_USELEADERELECTION=true
+        - CORE_PEER_GOSSIP_ORGLEADER=false
+        - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+        - CORE_PEER_LOCALMSPID=researchers.hf.medchain.global
+        - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+        - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer0.researchers.hf.medchain.global
+      working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+      command: peer node start
+      volumes:
+        - /var/run/:/host/var/run/
+        - ./crypto-config/peerOrganizations/researchers.hf.medchain.global/peers/peer0.researchers.hf.medchain.global/msp:/var/hyperledger/msp
+        - ./crypto-config/peerOrganizations/researchers.hf.medchain.global/peers/peer0.researchers.hf.medchain.global/tls:/var/hyperledger/tls
+      ports:
+        - 11061:11051
+        - 11063:11053
+      depends_on:
+        - orderer.hf.medchain.global
+      links:
+        - orderer.hf.medchain.global
+      networks:
+        default:
+          aliases:
+            - peer0.researchers.hf.medchain.global
+            
+  peer1.researchers.hf.medchain.global:
+    image: hyperledger/fabric-peer:x86_64-1.0.5
+    container_name: peer1.researchers.hf.medchain.global
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_NETWORKID=medchain
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_ID=peer1.researchers.hf.medchain.global
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_ADDRESS=peer1.storages.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.researchers.hf.medchain.global:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_LOCALMSPID=researchers.hf.medchain.global
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer1.researchers.hf.medchain.global
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/researchers.hf.medchain.global/peers/peer1.researchers.hf.medchain.global/msp:/var/hyperledger/msp
+      - ./crypto-config/peerOrganizations/researchers.hf.medchain.global/peers/peer1.researchers.hf.medchain.global/tls:/var/hyperledger/tls
+    ports:
+      - 11081:11071
+      - 11073:11073
+    depends_on:
+      - orderer.hf.medchain.global
+    links:
+      - orderer.hf.medchain.global
+    networks:
+      default:
+        aliases:
+          - peer0.patients.hf.medchain.global
 
 
   ca.storages.hf.medchain.global:

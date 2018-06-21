@@ -25,7 +25,7 @@ Profiles:
                 - *Researchers
         Consortium: SampleConsortium
         Consortiums:
-            SampleConsortium:
+            medchainConsortium:
                 Organizations:
                     - *OrdererOrg
                     - *Providers
@@ -33,28 +33,24 @@ Profiles:
                     - *Patients
                     - *Researchers
     emr:
-        Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *Providers  
                 - *Storages
     amr:
-        Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *Providers  
                 - *Researchers
     pii:
-        Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *Providers  
                 - *Patients
     directory:
-        Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
@@ -98,8 +94,7 @@ Organizations:
         MSPDir: crypto-config/peerOrganizations/patients.hf.medchain.global/msp
         AnchorPeers:
             - Host: peer0.patients.hf.medchain.global
-            # fix port
-              Port: 9051
+              Port: 10051
     - &Researchers 
         Name: Researchers
         ID: researchers.hf.medchain.global
@@ -107,8 +102,7 @@ Organizations:
         MSPDir: crypto-config/peerOrganizations/researchers.hf.medchain.global/msp
         AnchorPeers:
             - Host: peer0.researchers.hf.medchain.global
-            # fix port
-              Port: 9051
+              Port: 11051
         
 
 ################################################################################

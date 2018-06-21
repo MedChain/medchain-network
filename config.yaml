@@ -9,7 +9,7 @@ version: 2
 # The client section used by GO SDK.
 client:
   # Which organization does this application instance belong to? The value must be the name of an org
-  organization: Org1
+  organization: Providers
   logging:
     level: info
 
@@ -58,13 +58,13 @@ client:
 # [Optional]. But most apps would have this section so that channel objects can be constructed based on the content below.
 # If one of your application is creating channels, you might not use this
 channels:
-  emr:
+  medchain:
     orderers:
       - orderer.hf.medchain.global
 
     # Network entity which maintains a ledger and runs chaincode containers in order to perform operations to the ledger. Peers are owned and maintained by members.
     peers:
-      peer0.org1.hf.medchain.global:
+      peer0.providers.hf.medchain.global:
         # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
         # have the chaincode installed. The app can also use this property to decide which peers
         # to send the chaincode install request. Default: true
@@ -84,43 +84,191 @@ channels:
         # Default: true
         eventSource: true
 
-      peer1.org1.hf.medchain.global:
+      peer1.providers.hf.medchain.global:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: false
 
-      peer0.org2.hf.medchain.global:
+      peer0.storages.hf.medchain.global:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
 
-      peer1.org2.hf.medchain.global:
+      peer1.storages.hf.medchain.global:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: false
 
+      peer0.patients.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+      peer1.patients.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+      
+      peer0.researchers.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+      peer1.researchers.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+
+  emr: 
+    orderers:
+        - orderer.hf.medchain.global
+    peers: 
+      peer0.providers.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+      peer1.providers.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+
+      peer0.storages.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+      peer1.storages.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+
+  amr: 
+    orderers:
+          - orderer.hf.medchain.global
+    peers:
+      peer0.providers.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+      peer1.providers.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+
+      peer0.researchers.hf.medchain.global:
+          endorsingPeer: true
+          chaincodeQuery: true
+          ledgerQuery: true
+          eventSource: false
+      peer1.researchers.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+  pii: 
+    orderers:
+          - orderer.hf.medchain.global
+    peers:
+      peer0.providers.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+      peer1.providers.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+
+      peer0.patients.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+      peer1.patients.hf.medchain.global:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: false
+  directory: 
+      orderers:
+            - orderer.hf.medchain.global
+      peers:
+        peer0.providers.hf.medchain.global:
+          endorsingPeer: true
+          chaincodeQuery: true
+          ledgerQuery: true
+          eventSource: true
+
+        peer1.providers.hf.medchain.global:
+          endorsingPeer: true
+          chaincodeQuery: true
+          ledgerQuery: true
+          eventSource: false
+          
+        peer0.patients.hf.medchain.global:
+          endorsingPeer: true
+          chaincodeQuery: true
+          ledgerQuery: true
+          eventSource: false
+        peer1.patients.hf.medchain.global:
+          endorsingPeer: true
+          chaincodeQuery: true
+          ledgerQuery: true
+          eventSource: false
+
+
 
 # List of participating organizations in this network
 organizations:
-  Org1:
-    mspid: org1.hf.medchain.global
-    cryptoPath: "peerOrganizations/org1.hf.medchain.global/users/{userName}@org1.hf.medchain.global/msp"
+  Providers:
+    mspid: providers.hf.medchain.global
+    cryptoPath: "peerOrganizations/providers.hf.medchain.global/users/{userName}@providers.hf.medchain.global/msp"
     peers:
-      - peer0.org1.hf.medchain.global
-      - peer1.org1.hf.medchain.global
+      - peer0.providers.hf.medchain.global
+      - peer1.providers.hf.medchain.global
     certificateAuthorities:
-      - ca.org1.hf.medchain.global
-  Org2:
-    mspid: org2.hf.medchain.global
-    cryptoPath: "peerOrganizations/org2.hf.medchain.global/users/{userName}@org2.hf.medchain.global/msp"
+      - ca.providers.hf.medchain.global
+  Storages:
+    mspid: storages.hf.medchain.global
+    cryptoPath: "peerOrganizations/storages.hf.medchain.global/users/{userName}@storages.hf.medchain.global/msp"
     peers:
-      - peer0.org2.hf.medchain.global
-      - peer1.org2.hf.medchain.global
+      - peer0.storages.hf.medchain.global
+      - peer1.storages.hf.medchain.global
     certificateAuthorities:
-      - ca.org2.hf.medchain.global    
+      - ca.storages.hf.medchain.global 
+
+  Patients:
+    mspid: patients.hf.medchain.global
+    cryptoPath: "peerOrganizations/patients.hf.medchain.global/users/{userName}@patients.hf.medchain.global/msp"
+    peers:
+      - peer0.patients.hf.medchain.global
+      - peer1.patients.hf.medchain.global
+    certificateAuthorities:
+      - ca.storages.hf.medchain.global    
+    
+    Researchers:
+      mspid: researchers.hf.medchain.global
+      cryptoPath: "peerOrganizations/researchers.hf.medchain.global/users/{userName}@researchers.hf.medchain.global/msp"
+      peers:
+        - peer0.researchers.hf.medchain.global
+        - peer1.researchers.hf.medchain.global
+      certificateAuthorities:
+        - ca.storages.hf.medchain.global 
 
 # List of orderers to send transaction and channel create/update requests to.
 # The orderers consent on the order of transactions in a block to be committed to the ledger. For the time being only one orderer is needed.
@@ -135,56 +283,87 @@ orderers:
 
 # List of peers to send various requests to, including endorsement, query and event listener registration.
 peers:
-  peer0.org1.hf.medchain.global:
+  peer0.providers.hf.medchain.global:
     # this URL is used to send endorsement and query requests
     url: grpcs://localhost:7051
     # this URL is used to connect the EventHub and registering event listeners
     eventUrl: grpcs://localhost:7053
     # These parameters should be set in coordination with the keepalive policy on the server
     grpcOptions:
-      ssl-target-name-override: peer0.org1.hf.medchain.global
+      ssl-target-name-override: peer0.providers.hf.medchain.global
       grpc.http2.keepalive_time: 15
 
     tlsCACerts:
-      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/org1.hf.medchain.global/tlsca/tlsca.org1.hf.medchain.global-cert.pem"
+      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/providers.hf.medchain.global/tlsca/tlsca.providers.hf.medchain.global-cert.pem"
 
-  peer1.org1.hf.medchain.global:
+  peer1.providers.hf.medchain.global:
     url: grpcs://localhost:8051
     eventUrl: grpcs://localhost:8053
     grpcOptions:
-      ssl-target-name-override: peer1.org1.hf.medchain.global
+      ssl-target-name-override: peer1.providers.hf.medchain.global
       grpc.http2.keepalive_time: 15
     tlsCACerts:
       # Certificate location absolute path
-      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/org1.hf.medchain.global/tlsca/tlsca.org1.hf.medchain.global-cert.pem"
+      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/providers.hf.medchain.global/tlsca/tlsca.providers.hf.medchain.global-cert.pem"
 
 
-  peer0.org2.hf.medchain.global:
-    # this URL is used to send endorsement and query requests
+  peer0.storages.hf.medchain.global:
     url: grpcs://localhost:9051
-    # this URL is used to connect the EventHub and registering event listeners
     eventUrl: grpcs://localhost:9053
-    # These parameters should be set in coordination with the keepalive policy on the server
     grpcOptions:
-      ssl-target-name-override: peer0.org2.hf.medchain.global
+      ssl-target-name-override: peer0.storages.hf.medchain.global
       grpc.http2.keepalive_time: 15
 
     tlsCACerts:
-      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/org2.hf.medchain.global/tlsca/tlsca.org2.hf.medchain.global-cert.pem"
+      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/storages.hf.medchain.global/tlsca/tlsca.storages.hf.medchain.global-cert.pem"
 
-  peer1.org2.hf.medchain.global:
+  peer1.storages.hf.medchain.global:
     url: grpcs://localhost:8061
     eventUrl: grpcs://localhost:8063
     grpcOptions:
-      ssl-target-name-override: peer1.org2.hf.medchain.global
+      ssl-target-name-override: peer1.storages.hf.medchain.global
       grpc.http2.keepalive_time: 15
     tlsCACerts:
-      # Certificate location absolute path
-      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/org2.hf.medchain.global/tlsca/tlsca.org2.hf.medchain.global-cert.pem"
+      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/storages.hf.medchain.global/tlsca/tlsca.storages.hf.medchain.global-cert.pem"
+  
+  peer0.patients.hf.medchain.global:
+    url: grpcs://localhost:10051
+    eventUrl: grpcs://localhost:10053
+    grpcOptions:
+      ssl-target-name-override: peer0.patients.hf.medchain.global
+      grpc.http2.keepalive_time: 15
+    tlsCACerts:
+      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/patients.hf.medchain.global/tlsca/tlsca.patients.hf.medchain.global-cert.pem"
 
+  peer1.patients.hf.medchain.global:
+    url: grpcs://localhost:10061
+    eventUrl: grpcs://localhost:10063
+    grpcOptions:
+      ssl-target-name-override: peer1.patients.hf.medchain.global
+      grpc.http2.keepalive_time: 15
+    tlsCACerts:
+      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/patients.hf.medchain.global/tlsca/tlsca.patients.hf.medchain.global-cert.pem"
+
+  peer0.researchers.hf.medchain.global:
+    url: grpcs://localhost:11051
+    eventUrl: grpcs://localhost:11053
+    grpcOptions:
+      ssl-target-name-override: peer1.researchers.hf.medchain.global
+      grpc.http2.keepalive_time: 15
+    tlsCACerts:
+      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/researchers.hf.medchain.global/tlsca/tlsca.researchers.hf.medchain.global-cert.pem"
+  peer1.researchers.hf.medchain.global:
+    url: grpcs://localhost:11061
+    eventUrl: grpcs://localhost:11063
+    grpcOptions:
+      ssl-target-name-override: peer1.researchers.hf.medchain.global
+      grpc.http2.keepalive_time: 15
+    tlsCACerts:
+      path: "${GOPATH}/src/medchain/medchain-network/fixtures/crypto-config/peerOrganizations/researchers.hf.medchain.global/tlsca/tlsca.researchers.hf.medchain.global-cert.pem"
+  
 # Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows certificate management to be done via REST APIs.
 certificateAuthorities:
-  ca.org1.hf.medchain.global:
+  ca.providers.hf.medchain.global:
     url: https://localhost:7054
     # the properties specified under this object are passed to the 'http' client verbatim when making the request to the Fabric-CA server
     httpOptions:
@@ -192,9 +371,9 @@ certificateAuthorities:
     registrar:
       enrollId: admin
       enrollSecret: adminpw
-    caName: ca.org1.hf.medchain.global
+    caName: ca.providers.hf.medchain.global
     
-  ca.org2.hf.medchain.global:
+  ca.storages.hf.medchain.global:
     url: https://localhost:7074
     # the properties specified under this object are passed to the 'http' client verbatim when making the request to the Fabric-CA server
     httpOptions:
@@ -202,5 +381,5 @@ certificateAuthorities:
     registrar:
       enrollId: admin
       enrollSecret: adminpw
-    caName: ca.org2.hf.medchain.global
+    caName: ca.storages.hf.medchain.global
 
