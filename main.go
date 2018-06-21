@@ -20,7 +20,7 @@ func main() {
 		ChaincodeGoPath: os.Getenv("GOPATH"),
 		ChaincodePath:   "medchain/medchain-network/chaincode/",
 		OrgAdmin:        "Admin",
-		OrgName:         "Org1",
+		OrgName:         "Providers",
 		ConfigFile:      "config.yaml",
 
 		// User parameters
@@ -32,7 +32,7 @@ func main() {
 	if err != nil {
 		fmt.Printf("Unable to initialize the Fabric SDK: %v\n", err)
 	}
-
+	fmt.Printf("%+v\n", fSetup)
 	// Install and instantiate the chaincode
 	err = fSetup.InstallAndInstantiateCC()
 	if err != nil {
