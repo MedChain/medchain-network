@@ -2,15 +2,17 @@ package controllers
 
 import (
 	"fmt"
-	"medchain/medchain-network/blockchain"
 	"html/template"
+	"medchain/medchain-network/blockchain"
 	"net/http"
 	"os"
 	"path/filepath"
 )
 
 type Application struct {
-	Fabric *blockchain.FabricSetup
+	Fabric     *blockchain.FabricSetup
+	CcStorage  blockchain.ChaincodeSetup
+	CcProvider blockchain.ChaincodeSetup
 }
 
 func renderTemplate(w http.ResponseWriter, r *http.Request, templateName string, data interface{}) {

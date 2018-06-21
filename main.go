@@ -26,6 +26,20 @@ func main() {
 		// User parameters
 		UserName: "User1",
 	}
+	// Chaincode parameters for Storage
+	ccSetupStorage := blockchain.ChaincodeSetup{
+		ChainCodeID:      "StorageChainCode",
+		ChaincodeGoPath:  os.Getenv("GOPATH"),
+		ChaincodePath:    "medchain/medchain-network/chaincode/storage",
+		ChaincodeVersion: "1.06",
+	}
+	// Chaincode parameters for Provider
+	ccSetupProvider := blockchain.ChaincodeSetup{
+		ChainCodeID:      "ProviderChainCode",
+		ChaincodeGoPath:  os.Getenv("GOPATH"),
+		ChaincodePath:    "medchain/medchain-network/chaincode/provider",
+		ChaincodeVersion: "2.06",
+	}
 
 	// Initialization of the Fabric SDK from the previously set properties
 	err := fSetup.Initialize()
@@ -34,14 +48,22 @@ func main() {
 	}
 	fmt.Printf("%+v\n", fSetup)
 	// Install and instantiate the chaincode
-	err = fSetup.InstallAndInstantiateCC()
+	err = fSetup.InstallAndInstantiateCC(ccSetupStorage)
+	if err != nil {
+		fmt.Printf("Unable to install and instantiate the chaincode: %v\n", err)
+	}
+
+	// Install and instantiate the chaincode
+	err = fSetup.InstallAndInstantiateCC(ccSetupProvider)
 	if err != nil {
 		fmt.Printf("Unable to install and instantiate the chaincode: %v\n", err)
 	}
 
 	// Launch the web application listening
 	app := &controllers.Application{
-		Fabric: &fSetup,
+		Fabric:     &fSetup,
+		CcStorage:  ccSetupStorage,
+		CcProvider: ccSetupProvider,
 	}
 	web.Serve(app)
 }

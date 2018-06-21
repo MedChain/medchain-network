@@ -2,19 +2,20 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-// HeroesServiceChaincode implementation of Chaincode
-type HeroesServiceChaincode struct {
+// ChannelChaincode implementation of Chaincode
+type ChannelChaincode struct {
 }
 
 // Init of the chaincode
 // This function is called only one when the chaincode is instantiated.
 // So the goal is to prepare the ledger to handle future requests.
-func (t *HeroesServiceChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
-	fmt.Println("########### HeroesServiceChaincode Init ###########")
+func (t *ChannelChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
+	fmt.Println("########### ChannelChaincode Init (storage) ###########")
 
 	// Get the function and arguments from the request
 	function, _ := stub.GetFunctionAndParameters()
@@ -36,8 +37,8 @@ func (t *HeroesServiceChaincode) Init(stub shim.ChaincodeStubInterface) pb.Respo
 
 // Invoke
 // All future requests named invoke will arrive here.
-func (t *HeroesServiceChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	fmt.Println("########### HeroesServiceChaincode Invoke ###########")
+func (t *ChannelChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+	fmt.Println("########### ChannelChaincode Invoke ###########")
 
 	// Get the function and arguments from the request
 	function, args := stub.GetFunctionAndParameters()
@@ -69,8 +70,8 @@ func (t *HeroesServiceChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Res
 
 // query
 // Every readonly functions in the ledger will be here
-func (t *HeroesServiceChaincode) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	fmt.Println("########### HeroesServiceChaincode query ###########")
+func (t *ChannelChaincode) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	fmt.Println("########### ChannelChaincode query ###########")
 
 	// Check whether the number of arguments is sufficient
 	if len(args) < 2 {
@@ -97,8 +98,8 @@ func (t *HeroesServiceChaincode) query(stub shim.ChaincodeStubInterface, args []
 
 // invoke
 // Every functions that read and write in the ledger will be here
-func (t *HeroesServiceChaincode) invoke(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	fmt.Println("########### HeroesServiceChaincode invoke ###########")
+func (t *ChannelChaincode) invoke(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	fmt.Println("########### ChannelChaincode invoke ###########")
 
 	if len(args) < 2 {
 		return shim.Error("The number of arguments is insufficient.")
@@ -129,8 +130,8 @@ func (t *HeroesServiceChaincode) invoke(stub shim.ChaincodeStubInterface, args [
 
 func main() {
 	// Start the chaincode and make it ready for futures requests
-	err := shim.Start(new(HeroesServiceChaincode))
+	err := shim.Start(new(ChannelChaincode))
 	if err != nil {
-		fmt.Printf("Error starting Heroes Service chaincode: %s", err)
+		fmt.Printf("Error starting storage chaincode: %s", err)
 	}
 }
