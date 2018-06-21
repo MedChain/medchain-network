@@ -27,14 +27,14 @@ func main() {
 		ChainCodeID:      "StorageChainCode",
 		ChaincodeGoPath:  os.Getenv("GOPATH"),
 		ChaincodePath:    "medchain/medchain-network/chaincode/storage",
-		ChaincodeVersion: "1.02",
+		ChaincodeVersion: "1.06",
 	}
 	// Chaincode parameters for Provider
 	ccSetupProvider := blockchain.ChaincodeSetup{
 		ChainCodeID:      "ProviderChainCode",
 		ChaincodeGoPath:  os.Getenv("GOPATH"),
 		ChaincodePath:    "medchain/medchain-network/chaincode/provider",
-		ChaincodeVersion: "2.02",
+		ChaincodeVersion: "2.06",
 	}
 
 	// Initialization of the Fabric SDK from the previously set properties
