@@ -20,7 +20,7 @@ func main() {
 		ChaincodeGoPath: os.Getenv("GOPATH"),
 		ChaincodePath:   "medchain/medchain-network/chaincode/",
 		OrgAdmin:        "Admin",
-		OrgName:         "Org1",
+		OrgName:         "Providers",
 		ConfigFile:      "config.yaml",
 
 		// User parameters

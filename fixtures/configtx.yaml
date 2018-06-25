@@ -19,13 +19,13 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Org1MedChain
+                - *Providers
         Consortium: SampleConsortium
         Consortiums:
             SampleConsortium:
                 Organizations:
                     - *OrdererOrg
-                    - *Org1MedChain
+                    - *Providers
 
 ################################################################################
 #
@@ -42,13 +42,13 @@ Organizations:
         AdminPrincipal: Role.ADMIN
         MSPDir: crypto-config/ordererOrganizations/hf.medchain.global/msp
 
-    - &Org1MedChain
-        Name: Org1MedChain
-        ID: org1.hf.medchain.global
+    - &Providers
+        Name: Providers
+        ID: providers.hf.medchain.global
         AdminPrincipal: Role.ADMIN
-        MSPDir: crypto-config/peerOrganizations/org1.hf.medchain.global/msp
+        MSPDir: crypto-config/peerOrganizations/providers.hf.medchain.global/msp
         AnchorPeers:
-            - Host: peer0.org1.hf.medchain.global
+            - Host: peer0.providers.hf.medchain.global
               Port: 7051
 
 ################################################################################
