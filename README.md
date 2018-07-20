@@ -2,19 +2,30 @@
 
 Work in progress (WIP)
 
-Steps performed to date:
- 1. From [this ChainHero tutorial](https://chainhero.io/2018/03/tutorial-build-blockchain-app-2/)
-  1. A copy of the tutorial saved [here](docs/Tutorial-Hyperledger-Fabric-SDK-Go_How-to-build-your-first-app_v1.0.5-chainHero.html) and [here](docs/Tutorial-Hyperledger-Fabric_How-to-build-your-first-network-chainHero.html)
- 1. copied https://github.com/chainHero/heroes-service to medchain/medchain-networks
- 1. changed *almost* all references to hero over to MedChain, medchain, medchain-network, emr, etc.
- 1. followed instructions at https://github.com/chainHero/heroes-service-network to rebuild fixtures/
-   1. used:
-     1. cd fixtures/
-     1. sudo rm -fr crypto-config/
-     1. cryptogen generate --config=./crypto-config.yaml
-     1. FABRIC_CFG_PATH=$PWD configtxgen -profile MedChain -outputBlock ./artifacts/orderer.genesis.block
-     1. FABRIC_CFG_PATH=$PWD configtxgen -profile MedChain -outputCreateChannelTx ./artifacts/emr.channel.tx -channelID emr
-     1. FABRIC_CFG_PATH=$PWD configtxgen -profile MedChain -outputAnchorPeersUpdate ./artifacts/org1.medchain.anchors.tx -channelID emr -asOrg Org1MedChain
- 1. make
+## Setup ##
+### Docker ###
+ 1.  
 
- Seems to compile, sets up network, starts web server, accepts POSTs, changes values in blockchain
+### GO ###
+ 1.  
+
+### Binaries ###
+ 1. `cd $GOPATH`
+ 1. `mkdir -p src/github.com/hyperledger/`
+ 1. `cd src/github.com/hyperledger/`
+ 1. `curl -sSL https://goo.gl/6wtTN5 | bash -s 1.1.0`
+ 1. edit your .bashrc file to include the path to your new src/github.com/hyperledger/fabric-samples/bin/ dir in $PATH
+
+### clone medchain-network ###
+ 1. cd into your own projects folder
+ 1. `git clone git@github.com:MedChain/medchain-network.git`
+ 1. `cd medchain-network`
+
+### setup the fixture/network ###
+ 1. `cd fixtures/`
+ 1. `./setup.sh`
+ 1. `cd ..`
+
+### test ###
+ 1. `make`
+ 1. go to http://localhost:3000/ in a browser

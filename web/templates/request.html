@@ -15,10 +15,26 @@
 {{ end }}
 {{ end }}
 
+{{ if .ResponseProvider }}
+{{ if .SuccessProvider }}
+<div class="alert alert-success" role="alert">
+    Successful request, transaction ID: {{ .TransactionIdProvider }}
+</div>
+{{ else }}
+<div class="alert alert-danger" role="alert">
+    Unable to submit the provider request, retry later.
+</div>
+{{ end }}
+{{ end }}
+
 <form class="form-inline" action="request.html" method="post">
     <div class="form-group">
         <label for="helloValue">Hello value</label>
         <input type="text" class="form-control" id="helloValue" placeholder="world" name="hello">
+    </div>
+    <div class="form-group">
+        <label for="helloProviderValue">Hello Provider value</label>
+        <input type="text" class="form-control" id="helloProviderValue" placeholder="provider2" name="helloprovider">
     </div>
     <input type="hidden" name="submitted" value="true">
     <button type="submit" class="btn btn-default">Send the request</button>

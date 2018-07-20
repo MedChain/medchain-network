@@ -1,19 +1,19 @@
 @startuml
 dPatientApp->dPatientApp: newProvider(key: M')-> key[]: [B,B']
 dPatientApp->dServiceProviderApp: Encrypted(P) Signed (M') payload(bool:1, key:B)
-dServiceProviderApp-> ProviderNode: getPatientData(string: patientAddr)
+dServiceProviderApp-> ProviderNode: QueryPatientData(string: patientAddr)
 ProviderNode->ProviderNode: LookupFileLocations(string: patientAddress)->DirectoryBlock[]
 ProviderNode-> dServiceProviderApp: DirectoryBlock[]
 dServiceProviderApp->dServiceProviderApp: User interaction-> array: selectedFiles[]
-loop getFiles(selectedFiles[])
+loop QueryPatientRecords(selectedFileIds[])
 loop assembleFile
-ProviderNode->StorageNode: getFileFragments(string: dataLocations[])
+ProviderNode->StorageNode: queryFileFragment(string: dataLocations[])
 StorageNode->StorageNode: IOaccess(dataLocations[])-> byteArray: EncyptedFrag[]
 StorageNode->EMRChannel: generateAccessBlock(string: accessAddr, bool: 1-read, string: providerAddr)
 StorageNode->ProviderNode: byteArray: EncyptedFrag[]
 ProviderNode->ProviderNode: assembleFile(Array[]byteArray[]: Array[]EcryptedFrag[])-> byteArray: EcryptedFile[]
 end
 ProviderNode->dServiceProviderApp: byteArray: EcryptedFile[]
-ProviderNode->dServiceProviderApp: decrypFile(byteArray: EcryptedFile[])->byteArray: File[]
+dServiceProviderApp->dServiceProviderApp: decrypFile(byteArray: EcryptedFile[])->byteArray: File[]
 end
 @enduml

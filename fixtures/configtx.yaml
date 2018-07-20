@@ -1,31 +1,20 @@
-################################################################################
-#
-#   SECTION : Profile
-#
-#   - Different configuration profiles may be encoded here to be specified
-#   as parameters to the configtxgen tool. The profiles which specify consortiums
-#   are to be used for generating the orderer genesis block.  With the correct
-#   consortium members defined in the orderer genesis block, channel creation
-#   requests may be generated with only the org member names and a consortium name
-#
-################################################################################
-Profiles:
-    MedChain:
-        
-        Orderer:
-            <<: *OrdererDefaults
-            Organizations:
-                - *OrdererOrg
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - *Org1MedChain
-        Consortium: SampleConsortium
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - *OrdererOrg
-                    - *Org1MedChain
+Capabilities:
+    # Channel capabilities apply to both the orderers and the peers and must be
+    # supported by both.  Set the value of the capability to true to require it.
+    Global: &ChannelCapabilities
+        V1_1: true
+
+    # Orderer capabilities apply only to the orderers, and may be safely
+    # manipulated without concern for upgrading peers.  Set the value of the
+    # capability to true to require it.
+    Orderer: &OrdererCapabilities
+        V1_1: true
+
+    # Application capabilities apply only to the peer network, and may be safely
+    # manipulated without concern for upgrading orderers.  Set the value of the
+    # capability to true to require it.
+    Application: &ApplicationCapabilities
+        V1_2: true
 
 ################################################################################
 #
@@ -42,14 +31,39 @@ Organizations:
         AdminPrincipal: Role.ADMIN
         MSPDir: crypto-config/ordererOrganizations/hf.medchain.global/msp
 
-    - &Org1MedChain
-        Name: Org1MedChain
-        ID: org1.hf.medchain.global
+    - &Providers
+        Name: Providers
+        ID: providers.hf.medchain.global
         AdminPrincipal: Role.ADMIN
-        MSPDir: crypto-config/peerOrganizations/org1.hf.medchain.global/msp
+        MSPDir: crypto-config/peerOrganizations/providers.hf.medchain.global/msp
         AnchorPeers:
-            - Host: peer0.org1.hf.medchain.global
+            - Host: peer0.providers.hf.medchain.global
               Port: 7051
+    - &Storages
+        Name: Storages
+        ID: storages.hf.medchain.global
+        AdminPrincipal: Role.ADMIN
+        MSPDir: crypto-config/peerOrganizations/storages.hf.medchain.global/msp
+        AnchorPeers:
+            - Host: peer0.storages.hf.medchain.global
+              Port: 9051
+    - &Patients
+        Name: Patients
+        ID: patients.hf.medchain.global
+        AdminPrincipal: Role.ADMIN
+        MSPDir: crypto-config/peerOrganizations/patients.hf.medchain.global/msp
+        AnchorPeers:
+            - Host: peer0.patients.hf.medchain.global
+              Port: 10051
+    - &Researchers
+        Name: Researchers
+        ID: researchers.hf.medchain.global
+        AdminPrincipal: Role.ADMIN
+        MSPDir: crypto-config/peerOrganizations/researchers.hf.medchain.global/msp
+        AnchorPeers:
+            - Host: peer0.researchers.hf.medchain.global
+              Port: 11051
+
 
 ################################################################################
 #
@@ -96,3 +110,105 @@ Orderer: &OrdererDefaults
 ################################################################################
 Application: &ApplicationDefaults
     Organizations:
+
+
+################################################################################
+#
+#   SECTION : Profile
+#
+#   - Different configuration profiles may be encoded here to be specified
+#   as parameters to the configtxgen tool. The profiles which specify consortiums
+#   are to be used for generating the orderer genesis block.  With the correct
+#   consortium members defined in the orderer genesis block, channel creation
+#   requests may be generated with only the org member names and a consortium name
+#
+################################################################################
+Profiles:
+    OrdererGenesis:
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+        Consortiums:
+            SampleConsortium:
+                Organizations:
+                    - *OrdererOrg
+                    - *Providers
+                    - *Storages
+                    - *Patients
+                    - *Researchers
+            EMR:
+                Organizations:
+                    - *Providers
+                    - *Storages
+            AMR:
+                Organizations:
+                    - *Providers
+                    - *Researchers
+            PII:
+                Organizations:
+                    - *Providers
+                    - *Patients
+            DIR:
+                Organizations:
+                    - *Providers
+                    - *Patients
+
+    medchain:
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Providers
+                - *Storages
+                - *Patients
+                - *Researchers
+        Consortium: SampleConsortium
+
+    emr:
+        Consortium: EMR
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Providers
+                - *Storages
+    amr:
+        Consortium: AMR
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Providers
+                - *Researchers
+    pii:
+        Consortium: PII
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Providers
+                - *Patients
+    directory:
+        Consortium: DIR
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Providers
+                - *Patients
